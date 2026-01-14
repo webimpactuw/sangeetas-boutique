@@ -1,3 +1,1 @@
 # sangeethas-boutique
-
-Sameer Sahai
