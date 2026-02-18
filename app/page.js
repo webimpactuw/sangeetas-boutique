@@ -1,7 +1,7 @@
-
+import Navbar from './components/navbar.js'
 
 export default function Home() {
   return (
-   <main>Home Page</main>
+   <main><Navbar></Navbar></main>
   );
 }
