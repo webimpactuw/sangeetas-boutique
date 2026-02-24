@@ -20,6 +20,25 @@ You can start editing the page by modifying `app/page.js`. The page auto-updates
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## routing
+[Sangeetas Boutique]/                 # Website root
+├── app/
+│   ├── components/
+│   │   ├── navbar.js      # Global navbar component
+│   │   └── button.js      # Global footer component
+│   │ 
+│   ├── contact/           # Contact page contents
+│   │   └── page.js 
+│   │
+│   ├── events/            # Events page contents
+│   │   └── page.js
+│   │
+│   ├── global.css         # Global CSS file
+│   ├── layout.js          # Global Page layout stylings
+│   └── page.js            # Website homepage
+│   
+└── public/                # Public, user-facing files (PNGs, SVGs)
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
