@@ -1,10 +1,24 @@
-import Fragment from "react";
-import NavBar from "./components/NavBar";
+import Navbar from './components/navbar'
+import HeroBanner from './components/HeroBanner'
+import ShopSection from './components/ShopSection'
+import EventsSection from './components/EventsSection'
+import Footer from './components/Footer'
+
+function SectionSeparator() {
+  return <div className="w-full h-2 md:h-3 bg-sanji-border/40" />
+}
 
 export default function Home() {
   return (
-   <main><NavBar></NavBar>
-   <h1 className="text-center text-2xl mt-4">SANJI'S BOUTIQUE</h1>
-   </main>
-  );
+    <main className="min-h-screen bg-white">
+      <Navbar />
+      <HeroBanner />
+      <SectionSeparator />
+      <ShopSection />
+      <SectionSeparator />
+      <EventsSection />
+      <SectionSeparator />
+      <Footer />
+    </main>
+  )
 }
