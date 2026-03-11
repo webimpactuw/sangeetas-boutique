@@ -26,7 +26,12 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 ├── app/
 │   ├── components/
 │   │   ├── navbar.js      # Global navbar component
-│   │   └── button.js      # Global footer component
+│   │   └── button.js      # Global button component
+│   │   └── EventsSection.js # Global EventsSection component
+│   │   └── Footer.js      # Global Footer component
+│   │   └── HeroBanner.js  # Global HeroBanner component
+│   │   └── MobileMenu.js  # Global MobileMenu component
+│   │   └── ShopSection.js # Global ShopSection component
 │   │ 
 │   ├── contact/           # Contact page contents
 │   │   └── page.js 
