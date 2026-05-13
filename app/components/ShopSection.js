@@ -2,79 +2,57 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 const categories = [
-  { name: 'Dresses', image: '/images/product-dress.png' },
-  { name: 'Lehengas', image: '/images/product-lehenga.png' },
-  { name: 'Saris', image: '/images/product-sari.png' },
-  { name: 'Kurtas', image: '/images/product-kurta.png' },
+  { name: 'Lehengas', image: '/images/product-lehenga.png', href: '/apparel?category=lehengas' },
+  { name: 'Dresses', image: '/images/product-dress.png', href: '/apparel?category=dresses' },
+  { name: 'Jewelry', image: '/images/product-sari.png', href: '/accessories?category=jewelry' },
+  { name: 'Kids Wear', image: '/images/product-kurta.png', href: '/apparel?category=kids' },
 ]
+
+function CategoryCard({ cat }) {
+  return (
+    <Link
+      href={cat.href}
+      className="relative block w-full aspect-[3/4] overflow-hidden group"
+    >
+      <Image
+        src={cat.image}
+        alt={cat.name}
+        fill
+        className="object-cover group-hover:scale-105 transition-transform duration-500"
+        sizes="(max-width: 768px) 50vw, 25vw"
+      />
+      <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/55 via-black/15 to-transparent" />
+      <div className="absolute inset-x-0 bottom-3 md:bottom-5 flex flex-col items-center gap-1.5 md:gap-2.5 px-3">
+        <span className="font-cardo italic text-white text-base md:text-2xl drop-shadow">
+          {cat.name}
+        </span>
+        <span className="font-cardo text-white text-xs md:text-sm bg-navy/40 backdrop-blur-sm border border-white/70 rounded-sm px-5 md:px-8 py-1 md:py-1.5 group-hover:bg-navy group-hover:border-white transition-colors">
+          View
+        </span>
+      </div>
+    </Link>
+  )
+}
 
 export default function ShopSection() {
   return (
-    <section id="apparel" className="py-8 md:py-12 bg-white">
-      {/* Mobile: centered title */}
-      <div className="md:hidden text-center mb-6">
-        <h2 className="font-cardo font-bold text-navy text-2xl">
-          SHOP →
-        </h2>
+    <section className="bg-white py-10 md:py-16">
+      <h2 className="font-cardo font-bold text-navy text-2xl md:text-5xl text-center mb-6 md:mb-12 tracking-wide">
+        SHOP BY CATEGORY
+      </h2>
+
+      <div className="md:hidden flex gap-3 overflow-x-auto px-4 pb-2 snap-x snap-mandatory scrollbar-hide">
+        {categories.map((cat) => (
+          <div key={cat.name} className="flex-shrink-0 w-[42vw] max-w-[180px] snap-start">
+            <CategoryCard cat={cat} />
+          </div>
+        ))}
       </div>
 
-      <div className="flex flex-col md:flex-row gap-6 md:gap-10 max-w-7xl mx-auto px-4 md:px-8">
-        {/* Desktop: categories sidebar */}
-        <div className="hidden md:flex flex-col gap-1 w-48 flex-shrink-0 pt-4">
-          <h2 className="font-cardo font-bold text-navy text-3xl mb-2">
-            SHOP <span className="font-normal italic">→</span>
-          </h2>
-          {['Dresses', 'Lehengas', 'Saris', 'Kurtas', 'Churidars'].map((cat) => (
-            <Link
-              key={cat}
-              href={`#${cat.toLowerCase()}`}
-              className="font-cardo italic text-navy text-2xl hover:underline transition-all"
-            >
-              {cat}
-            </Link>
-          ))}
-        </div>
-
-        {/* Product images */}
-        {/* Mobile: horizontal scrolling cards with gradient overlays */}
-        <div className="md:hidden flex gap-3 overflow-x-auto pb-4 px-2 snap-x snap-mandatory scrollbar-hide">
+      <div className="hidden md:block max-w-7xl mx-auto px-8">
+        <div className="grid grid-cols-4 gap-6">
           {categories.map((cat) => (
-            <Link
-              key={cat.name}
-              href={`#${cat.name.toLowerCase()}`}
-              className="relative flex-shrink-0 w-[45vw] h-[60vw] max-w-[200px] max-h-[280px] border-4 border-sanji-border overflow-hidden snap-center"
-            >
-              <Image
-                src={cat.image}
-                alt={cat.name}
-                fill
-                className="object-cover"
-              />
-              {/* Gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/60" />
-              {/* Category label */}
-              <p className="absolute bottom-3 left-0 right-0 text-center font-cardo text-white text-sm tracking-wide">
-                {cat.name.toUpperCase()}
-              </p>
-            </Link>
-          ))}
-        </div>
-
-        {/* Desktop: grid of product images */}
-        <div className="hidden md:grid grid-cols-4 gap-8 flex-1">
-          {categories.map((cat) => (
-            <Link
-              key={cat.name}
-              href={`#${cat.name.toLowerCase()}`}
-              className="relative h-[350px] border-4 border-sanji-border overflow-hidden group"
-            >
-              <Image
-                src={cat.image}
-                alt={cat.name}
-                fill
-                className="object-cover group-hover:scale-105 transition-transform duration-300"
-              />
-            </Link>
+            <CategoryCard key={cat.name} cat={cat} />
           ))}
         </div>
       </div>

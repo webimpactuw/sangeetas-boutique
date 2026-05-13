@@ -7,36 +7,38 @@ import Link from 'next/link'
 const menuItems = [
   {
     label: 'Apparel',
-    href: '#apparel',
+    href: '/apparel',
     submenu: [
-      { label: 'Women', href: '#women' },
-      { label: 'Mens', href: '#mens' },
-      { label: 'Kids', href: '#kids' },
+      { label: 'All Apparel', href: '/apparel' },
+      { label: 'Women', href: '/apparel?category=women' },
+      { label: 'Mens', href: '/apparel?category=mens' },
+      { label: 'Kids', href: '/apparel?category=kids' },
     ],
   },
   {
     label: 'Accessories',
-    href: '#accessories',
+    href: '/accessories',
     submenu: [
-      { label: 'Necklaces', href: '#necklaces' },
-      { label: 'Earrings', href: '#earrings' },
-      { label: 'Bracelets', href: '#bracelets' },
-      { label: 'Purses', href: '#purses' },
+      { label: 'All Accessories', href: '/accessories' },
+      { label: 'Necklaces', href: '/accessories?category=necklaces' },
+      { label: 'Earrings', href: '/accessories?category=earrings' },
+      { label: 'Bracelets', href: '/accessories?category=bracelets' },
+      { label: 'Purses', href: '/accessories?category=purses' },
     ],
   },
   {
     label: 'Booking',
-    href: '#booking',
+    href: '/booking',
     submenu: null,
   },
   {
     label: 'Gallery',
-    href: '#gallery',
+    href: '/gallery',
     submenu: null,
   },
   {
-    label: "About Sangeeta's",
-    href: '#about',
+    label: "About Sanji's",
+    href: '/about',
     submenu: null,
   },
 ]

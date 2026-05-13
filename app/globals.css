@@ -6,6 +6,8 @@
   --navy: #0b1551;
   --sanji-border: #d9e9ed;
   --light-bg: #f5f7fa;
+  --cream: #f5efe1;
+  --cream-soft: #fbf6ec;
 }
 
 @theme inline {
@@ -14,6 +16,8 @@
   --color-navy: var(--navy);
   --color-sanji-border: var(--sanji-border);
   --color-light-bg: var(--light-bg);
+  --color-cream: var(--cream);
+  --color-cream-soft: var(--cream-soft);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-cardo: 'Cardo', serif;

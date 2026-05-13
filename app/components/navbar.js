@@ -31,7 +31,7 @@ export default function Navbar() {
             <Image src="/images/search-icon-blue.png" alt="Search" width={22} height={22} className="object-contain invert brightness-0" />
           </button>
           <div className="w-px h-5 bg-white/50" />
-          <Link href="#cart" aria-label="Cart" className="hover:opacity-80 transition-opacity">
+          <Link href="/cart" aria-label="Cart" className="hover:opacity-80 transition-opacity">
             <Image src="/images/cart-icon-figma.png" alt="Cart" width={22} height={22} className="object-contain invert brightness-0" />
           </Link>
         </div>
@@ -73,7 +73,7 @@ export default function Navbar() {
             <Image src="/images/search-icon-blue.png" alt="Search" width={36} height={36} className="object-contain" />
           </button>
           <div className="w-px h-8 bg-navy/30" />
-          <Link href="#cart" aria-label="Cart" className="hover:opacity-80 transition-opacity">
+          <Link href="/cart" aria-label="Cart" className="hover:opacity-80 transition-opacity">
             <Image src="/images/cart-icon-figma.png" alt="Cart" width={36} height={36} className="object-contain" />
           </Link>
         </div>
@@ -83,28 +83,28 @@ export default function Navbar() {
       <nav className="hidden md:block bg-sanji-border/40">
         <ul className="flex items-center justify-center gap-12 py-3 font-cardo text-navy text-lg tracking-wide">
           <li>
-            <Link href="#apparel" className="hover:underline underline-offset-4 transition-all">
+            <Link href="/apparel" className="hover:underline underline-offset-4 transition-all">
               APPAREL
             </Link>
           </li>
           <li>
-            <Link href="#accessories" className="hover:underline underline-offset-4 transition-all">
+            <Link href="/accessories" className="hover:underline underline-offset-4 transition-all">
               ACCESSORIES
             </Link>
           </li>
           <li>
-            <Link href="#booking" className="hover:underline underline-offset-4 transition-all">
+            <Link href="/booking" className="hover:underline underline-offset-4 transition-all">
               BOOKING
             </Link>
           </li>
           <li>
-            <Link href="#gallery" className="hover:underline underline-offset-4 transition-all">
+            <Link href="/gallery" className="hover:underline underline-offset-4 transition-all">
               GALLERY
             </Link>
           </li>
           <li>
-            <Link href="#about" className="hover:underline underline-offset-4 transition-all">
-              ABOUT SANGEETA&apos;S
+            <Link href="/about" className="hover:underline underline-offset-4 transition-all">
+              ABOUT SANJI&apos;S
             </Link>
           </li>
         </ul>
