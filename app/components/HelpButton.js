@@ -1,9 +1,17 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { DEFAULT_HELP } from '../lib/contentDefaults'
 
-export default function HelpButton() {
+/**
+ * @param {{ title?: string; ctaLabel?: string; email?: string }} props
+ */
+export default function HelpButton({ title, ctaLabel, email }) {
   const [visible, setVisible] = useState(false)
+
+  const t = title?.trim() || DEFAULT_HELP.title
+  const cta = ctaLabel?.trim() || DEFAULT_HELP.ctaLabel
+  const em = email?.trim() || DEFAULT_HELP.email
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -31,12 +39,12 @@ export default function HelpButton() {
           &times;
         </button>
         <a
-          href="mailto:Sanji@gmail.com"
+          href={`mailto:${em}`}
           className="block font-cardo text-xs md:text-sm leading-tight"
         >
-          <span className="block">Need Help?</span>
+          <span className="block">{t}</span>
           <span className="block underline underline-offset-2 hover:no-underline">
-            Contact Sanji
+            {cta}
           </span>
         </a>
       </div>

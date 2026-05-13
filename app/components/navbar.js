@@ -4,10 +4,15 @@ import Link from 'next/link'
 import Image from 'next/image'
 import logo from '@/public/images/brand-logo.png'
 import { useState } from 'react'
+import { DEFAULT_NAVBAR_SHIP_TO } from '../lib/contentDefaults'
 import MobileMenu from './MobileMenu'
 
-export default function Navbar() {
+/**
+ * @param {{ shipToLine?: string }} props
+ */
+export default function Navbar({ shipToLine }) {
   const [menuOpen, setMenuOpen] = useState(false)
+  const shipLine = shipToLine?.trim() || DEFAULT_NAVBAR_SHIP_TO
 
   return (
     <>
@@ -52,7 +57,7 @@ export default function Navbar() {
       <div className="bg-white flex items-center justify-center relative px-4 md:px-10 py-4 md:py-6">
         {/* Desktop: Ship To text (left) */}
         <p className="hidden md:block absolute top-8 left-10 font-cardo italic text-black text-lg">
-          Ship To: Issaquah, WA
+          {shipLine}
         </p>
 
         {/* Brand logo (centered) */}

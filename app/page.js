@@ -5,17 +5,24 @@ import CraftsmanshipSection from './components/CraftsmanshipSection'
 import CustomerReviews from './components/CustomerReviews'
 import ExploreJewelry from './components/ExploreJewelry'
 import FiligreeBorder from './components/FiligreeBorder'
+import { mapHomePage } from './lib/mapSanityContent'
+import { getHomePage } from '../sanity/lib/fetchPublicContent'
 
-export default function Home() {
+export const revalidate = 60
+
+export default async function Home() {
+  const raw = await getHomePage()
+  const content = mapHomePage(raw)
+
   return (
     <>
-      <HeroBanner />
+      <HeroBanner slides={content.heroSlides} />
       <FiligreeBorder />
-      <ShopSection />
-      <EleganceSection />
-      <CraftsmanshipSection />
-      <CustomerReviews />
-      <ExploreJewelry />
+      <ShopSection heading={content.shopHeading} categories={content.shopCategories} />
+      <EleganceSection words={content.elegance.words} tagline={content.elegance.tagline} />
+      <CraftsmanshipSection {...content.craftsmanship} />
+      <CustomerReviews {...content.reviews} />
+      <ExploreJewelry {...content.exploreJewelry} />
       <FiligreeBorder />
     </>
   )

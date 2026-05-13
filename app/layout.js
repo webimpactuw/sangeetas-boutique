@@ -4,6 +4,8 @@ import TopBanner from "./components/TopBanner";
 import Navbar from "./components/navbar";
 import Footer from "./components/Footer";
 import HelpButton from "./components/HelpButton";
+import { mapSiteSettings } from "./lib/mapSanityContent";
+import { getSiteSettings } from "../sanity/lib/fetchPublicContent";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,12 +17,21 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata = {
-  title: "Sangeeta's Boutique",
-  description: "Elegance · Beauty · Tradition",
-};
+export const revalidate = 60;
 
-export default function RootLayout({ children }) {
+export async function generateMetadata() {
+  const raw = await getSiteSettings();
+  const s = mapSiteSettings(raw);
+  return {
+    title: s.siteTitle,
+    description: s.siteDescription,
+  };
+}
+
+export default async function RootLayout({ children }) {
+  const raw = await getSiteSettings();
+  const s = mapSiteSettings(raw);
+
   return (
     <html lang="en">
       <head>
@@ -32,11 +43,22 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-white`}
       >
-        <TopBanner />
-        <Navbar />
+        <TopBanner prefix={s.topBannerPrefix} promoCode={s.promoCode} />
+        <Navbar shipToLine={s.navbarShipToLine} />
         <div className="flex-1">{children}</div>
-        <Footer />
-        <HelpButton />
+        <Footer
+          phone={s.footerPhone}
+          email={s.footerEmail}
+          hours={s.footerHours}
+          copyrightLine={s.copyrightLine}
+          quickLinks={s.footerQuickLinks}
+          policies={s.footerPolicies}
+        />
+        <HelpButton
+          title={s.helpTitle}
+          ctaLabel={s.helpCtaLabel}
+          email={s.helpEmail}
+        />
       </body>
     </html>
   );

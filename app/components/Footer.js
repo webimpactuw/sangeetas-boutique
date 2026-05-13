@@ -1,19 +1,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
-
-const quickLinks = [
-  { label: 'Apparel', href: '/apparel' },
-  { label: 'Accessories', href: '/accessories' },
-  { label: 'Booking', href: '/booking' },
-  { label: 'Gallery', href: '/gallery' },
-  { label: 'About Sanji\u2019s', href: '/about' },
-]
-
-const policies = [
-  { label: 'Return Policy', href: '/policies/returns' },
-  { label: 'Shipping Policy', href: '/policies/shipping' },
-  { label: 'Tailoring Policy', href: '/policies/tailoring' },
-]
+import {
+  DEFAULT_FOOTER_CONTACT,
+  DEFAULT_FOOTER_POLICIES,
+  DEFAULT_FOOTER_QUICK_LINKS,
+} from '../lib/contentDefaults'
 
 function HoursRow({ label, time }) {
   return (
@@ -41,7 +32,31 @@ function PaymentIcon({ label, children, bg = '#ffffff' }) {
   )
 }
 
-export default function Footer() {
+/**
+ * @param {{
+ *   phone?: string
+ *   email?: string
+ *   hours?: Array<{ label: string; time: string }>
+ *   copyrightLine?: string
+ *   quickLinks?: Array<{ label: string; href: string }>
+ *   policies?: Array<{ label: string; href: string }>
+ * }} props
+ */
+export default function Footer({
+  phone,
+  email,
+  hours,
+  copyrightLine,
+  quickLinks,
+  policies,
+}) {
+  const tel = phone?.trim() || DEFAULT_FOOTER_CONTACT.phone
+  const em = email?.trim() || DEFAULT_FOOTER_CONTACT.email
+  const hourRows = hours?.length ? hours : DEFAULT_FOOTER_CONTACT.hours
+  const copy = copyrightLine?.trim() || DEFAULT_FOOTER_CONTACT.copyright
+  const ql = quickLinks?.length ? quickLinks : DEFAULT_FOOTER_QUICK_LINKS
+  const pol = policies?.length ? policies : DEFAULT_FOOTER_POLICIES
+
   return (
     <footer className="bg-navy text-white pt-10 md:pt-14 pb-6 md:pb-7 px-6 md:px-16">
       <div className="max-w-7xl mx-auto">
@@ -63,8 +78,8 @@ export default function Footer() {
               Quick Links
             </h3>
             <ul className="flex flex-col gap-1.5 md:gap-2 font-cardo text-sm md:text-[15px] text-white/85">
-              {quickLinks.map((link) => (
-                <li key={link.label}>
+              {ql.map((link) => (
+                <li key={`${link.label}-${link.href}`}>
                   <Link
                     href={link.href}
                     className="hover:text-white hover:underline underline-offset-2 transition-colors"
@@ -81,8 +96,8 @@ export default function Footer() {
               Policies
             </h3>
             <ul className="flex flex-col gap-1.5 md:gap-2 font-cardo text-sm md:text-[15px] text-white/85">
-              {policies.map((link) => (
-                <li key={link.label}>
+              {pol.map((link) => (
+                <li key={`${link.label}-${link.href}`}>
                   <Link
                     href={link.href}
                     className="hover:text-white hover:underline underline-offset-2 transition-colors"
@@ -164,8 +179,9 @@ export default function Footer() {
               Shop Hours
             </h3>
             <ul className="flex flex-col gap-1.5 md:gap-2">
-              <HoursRow label="Mon &ndash; Fri" time="9AM &ndash; 8PM" />
-              <HoursRow label="Sat, Sun" time="10AM &ndash; 9PM" />
+              {hourRows.map((row) => (
+                <HoursRow key={`${row.label}-${row.time}`} label={row.label} time={row.time} />
+              ))}
             </ul>
           </div>
 
@@ -176,15 +192,15 @@ export default function Footer() {
             <ul className="flex flex-col gap-1.5 md:gap-2 font-cardo text-sm md:text-[15px] text-white/85 mb-5 md:mb-6">
               <li>
                 <span className="block">Phone:</span>
-                <span className="block">425-862-8572</span>
+                <span className="block">{tel}</span>
               </li>
               <li>
                 <span className="block">Email:</span>
                 <a
-                  href="mailto:Sanji@gmail.com"
+                  href={`mailto:${em}`}
                   className="block hover:text-white hover:underline underline-offset-2 transition-colors"
                 >
-                  Sanji@gmail.com
+                  {em}
                 </a>
               </li>
               <li>
@@ -242,7 +258,7 @@ export default function Footer() {
 
         <div className="border-t border-white/15 pt-4 md:pt-5">
           <p className="font-cardo italic text-white/60 text-xs md:text-sm text-center">
-            &copy; 2026 Sanji&apos;s Label
+            {copy}
           </p>
         </div>
       </div>
