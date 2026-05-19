@@ -4,6 +4,7 @@ import TopBanner from "./components/TopBanner";
 import Navbar from "./components/navbar";
 import Footer from "./components/Footer";
 import HelpButton from "./components/HelpButton";
+import CartProvider from "./components/CartProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,11 +33,13 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-white`}
       >
-        <TopBanner />
-        <Navbar />
-        <div className="flex-1">{children}</div>
-        <Footer />
-        <HelpButton />
+        <CartProvider>
+          <TopBanner />
+          <Navbar />
+          <div className="flex-1">{children}</div>
+          <Footer />
+          <HelpButton />
+        </CartProvider>
       </body>
     </html>
   );
