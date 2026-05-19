@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { submitOrderInquiry } from '../actions/submitOrderInquiry'
 import { useCart } from '../context/CartContext'
 import { calculateTotals, DEFAULT_TAX_RATE } from '../lib/cart'
 
@@ -22,9 +23,11 @@ const shippingOptions = [
 
 export default function CheckoutView() {
   const router = useRouter()
-  const { items, hydrated } = useCart()
+  const { items, hydrated, clearCart } = useCart()
   const [delivery, setDelivery] = useState('ship')
   const [shipping, setShipping] = useState('standard')
+  const [submitting, setSubmitting] = useState(false)
+  const [formError, setFormError] = useState('')
 
   const shipCost =
     delivery === 'ship'
@@ -35,9 +38,49 @@ export default function CheckoutView() {
     taxRate: DEFAULT_TAX_RATE,
   })
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    router.push('/checkout/confirmation')
+    setFormError('')
+    setSubmitting(true)
+
+    const form = e.currentTarget
+    const fd = new FormData(form)
+
+    const customer = {
+      firstName: fd.get('firstName')?.toString() || '',
+      lastName: fd.get('lastName')?.toString() || '',
+      email: fd.get('email')?.toString() || '',
+      phone: fd.get('phone')?.toString() || '',
+      address: fd.get('address')?.toString() || '',
+      city: fd.get('city')?.toString() || '',
+      state: fd.get('state')?.toString() || '',
+      zip: fd.get('zip')?.toString() || '',
+    }
+
+    const result = await submitOrderInquiry({
+      customer,
+      items,
+      shippingId: shipping,
+      delivery,
+    })
+
+    setSubmitting(false)
+
+    if (!result.ok) {
+      setFormError(result.error)
+      return
+    }
+
+    clearCart()
+
+    const params = new URLSearchParams({
+      order: result.orderNumber,
+      total: result.total.toFixed(2),
+      city: customer.city || 'Issaquah',
+      state: customer.state || 'WA',
+    })
+
+    router.push(`/checkout/confirmation?${params.toString()}`)
   }
 
   if (!hydrated) {
@@ -85,14 +128,11 @@ export default function CheckoutView() {
             <h2 className={sectionTitle}>Contact Information</h2>
             <div className="mb-4 md:mb-5">
               <label htmlFor="email" className={labelClass}>Email</label>
-              <input id="email" type="email" required className={fieldClass} />
+              <input id="email" name="email" type="email" required className={fieldClass} />
             </div>
             <div>
-              <label className={labelClass}>Phone Number</label>
-              <div className="flex gap-3">
-                <input placeholder="Area" aria-label="Area code" inputMode="numeric" maxLength={3} className={`${fieldClass} w-20 md:w-24`} required />
-                <input placeholder="555 0123" aria-label="Phone number" inputMode="numeric" className={`${fieldClass} flex-1`} required />
-              </div>
+              <label htmlFor="phone" className={labelClass}>Phone Number</label>
+              <input id="phone" name="phone" type="tel" placeholder="(555) 555-0123" required className={fieldClass} />
             </div>
           </section>
 
@@ -123,16 +163,16 @@ export default function CheckoutView() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5 mb-4 md:mb-5">
                   <div>
                     <label htmlFor="firstName" className={labelClass}>First Name</label>
-                    <input id="firstName" required className={fieldClass} />
+                    <input id="firstName" name="firstName" required className={fieldClass} />
                   </div>
                   <div>
                     <label htmlFor="lastName" className={labelClass}>Last Name</label>
-                    <input id="lastName" required className={fieldClass} />
+                    <input id="lastName" name="lastName" required className={fieldClass} />
                   </div>
                 </div>
                 <div className="mb-4 md:mb-5">
                   <label htmlFor="address1" className={labelClass}>Address Line 1</label>
-                  <input id="address1" required className={fieldClass} />
+                  <input id="address1" name="address" required className={fieldClass} />
                 </div>
                 <div className="mb-4 md:mb-5">
                   <label htmlFor="address2" className={labelClass}>
@@ -143,15 +183,15 @@ export default function CheckoutView() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
                   <div>
                     <label htmlFor="city" className={labelClass}>City</label>
-                    <input id="city" required className={fieldClass} />
+                    <input id="city" name="city" required className={fieldClass} />
                   </div>
                   <div>
                     <label htmlFor="state" className={labelClass}>State</label>
-                    <input id="state" required className={fieldClass} />
+                    <input id="state" name="state" required className={fieldClass} />
                   </div>
                   <div>
                     <label htmlFor="zip" className={labelClass}>Zip Code</label>
-                    <input id="zip" required inputMode="numeric" maxLength={10} className={fieldClass} />
+                    <input id="zip" name="zip" required inputMode="numeric" maxLength={10} className={fieldClass} />
                   </div>
                 </div>
               </>
@@ -237,11 +277,16 @@ export default function CheckoutView() {
             This site does not process payments. After you submit, Sanji will contact you to arrange payment and confirm your order.
           </p>
 
+          {formError && (
+            <p className="font-cardo text-red-700 text-sm mb-3" role="alert">{formError}</p>
+          )}
+
           <button
             type="submit"
-            className="block w-full text-center font-cardo text-white text-base md:text-lg bg-navy hover:bg-navy/90 transition-colors py-3 md:py-3.5 rounded-sm"
+            disabled={submitting}
+            className="block w-full text-center font-cardo text-white text-base md:text-lg bg-navy hover:bg-navy/90 transition-colors py-3 md:py-3.5 rounded-sm disabled:opacity-60"
           >
-            Submit order inquiry
+            {submitting ? 'Sending…' : 'Submit order inquiry'}
           </button>
         </aside>
       </form>
