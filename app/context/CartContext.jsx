@@ -13,14 +13,11 @@ import {
 const CartContext = createContext(null)
 
 export function CartProvider({ children }) {
-  const [items, setItems] = useState([])
-  const [hydrated, setHydrated] = useState(false)
-
-  useEffect(() => {
-    const stored = typeof window !== 'undefined' ? window.localStorage.getItem(CART_STORAGE_KEY) : null
-    setItems(parseStoredCart(stored))
-    setHydrated(true)
-  }, [])
+  const [items, setItems] = useState(() => {
+    if (typeof window === 'undefined') return []
+    return parseStoredCart(window.localStorage.getItem(CART_STORAGE_KEY))
+  })
+  const [hydrated, setHydrated] = useState(() => typeof window !== 'undefined')
 
   useEffect(() => {
     if (!hydrated) return

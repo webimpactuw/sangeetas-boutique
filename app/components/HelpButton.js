@@ -1,14 +1,12 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 export default function HelpButton() {
-  const [visible, setVisible] = useState(false)
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return
-    if (sessionStorage.getItem('help-dismissed') !== 'true') setVisible(true)
-  }, [])
+  const [visible, setVisible] = useState(() => {
+    if (typeof window === 'undefined') return false
+    return sessionStorage.getItem('help-dismissed') !== 'true'
+  })
 
   const dismiss = () => {
     setVisible(false)
