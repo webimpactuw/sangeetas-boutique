@@ -3,8 +3,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
+import { useCart } from '../../context/CartContext'
 
 export default function ProductDetail({ product }) {
+  const { addItem } = useCart()
   const [size, setSize] = useState(product.sizes[2] || product.sizes[0])
   const [color, setColor] = useState(product.colors[0])
   const [quantity, setQuantity] = useState(1)
@@ -14,6 +16,15 @@ export default function ProductDetail({ product }) {
   const inc = () => setQuantity((q) => Math.min(99, q + 1))
 
   const handleAdd = () => {
+    addItem({
+      productId: product.id,
+      name: product.name,
+      price: product.price,
+      color,
+      size,
+      quantity,
+      image: product.image,
+    })
     setAdded(true)
     setTimeout(() => setAdded(false), 1800)
   }
