@@ -2,47 +2,26 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
-
-const initialItems = [
-  {
-    id: 'apparel-1',
-    name: 'Lehengas 01',
-    price: 150,
-    color: 'Blue',
-    size: 'L',
-    quantity: 1,
-    image: '/images/product-lehenga.png',
-  },
-  {
-    id: 'apparel-4',
-    name: 'Dresses 04',
-    price: 250,
-    color: 'Red',
-    size: 'L',
-    quantity: 1,
-    image: '/images/product-dress.png',
-  },
-]
-
-const TAX_RATE = 0.025
+import { useCart } from '../context/CartContext'
+import { calculateTotals, DEFAULT_TAX_RATE } from '../lib/cart'
 
 export default function CartView() {
-  const [items, setItems] = useState(initialItems)
+  const { items, changeQuantity, removeItem, hydrated } = useCart()
 
-  const updateQty = (id, delta) =>
-    setItems((prev) =>
-      prev.map((it) =>
-        it.id === id ? { ...it, quantity: Math.max(1, it.quantity + delta) } : it,
-      ),
+  if (!hydrated) {
+    return (
+      <div className="max-w-7xl mx-auto py-20 text-center font-cardo text-navy">
+        Loading cart…
+      </div>
     )
+  }
 
-  const removeItem = (id) =>
-    setItems((prev) => prev.filter((it) => it.id !== id))
+  const { subtotal, tax, total } = calculateTotals(items, {
+    shippingCost: 0,
+    taxRate: DEFAULT_TAX_RATE,
+  })
 
-  const subtotal = items.reduce((sum, it) => sum + it.price * it.quantity, 0)
-  const tax = subtotal * TAX_RATE
-  const total = subtotal + tax
+  const updateQty = (id, delta) => changeQuantity(id, delta)
 
   if (items.length === 0) {
     return (
@@ -84,7 +63,7 @@ export default function CartView() {
               }`}
             >
               <Link
-                href={`/products/${item.id}`}
+                href={`/products/${item.productId}`}
                 className="relative w-full sm:w-40 md:w-52 aspect-[4/5] flex-shrink-0 border border-sanji-border bg-light-bg overflow-hidden"
               >
                 <Image
@@ -98,7 +77,7 @@ export default function CartView() {
 
               <div className="flex-1 flex flex-col">
                 <Link
-                  href={`/products/${item.id}`}
+                  href={`/products/${item.productId}`}
                   className="font-cardo font-bold text-navy text-lg md:text-xl hover:underline mb-1.5"
                 >
                   {item.name}
@@ -137,7 +116,7 @@ export default function CartView() {
 
                 <div className="flex gap-4 md:gap-5 font-cardo text-sm md:text-base">
                   <Link
-                    href={`/products/${item.id}`}
+                    href={`/products/${item.productId}`}
                     className="text-navy hover:underline"
                   >
                     Edit

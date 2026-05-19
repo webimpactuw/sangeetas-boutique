@@ -5,9 +5,11 @@ import Image from 'next/image'
 import logo from '@/public/images/brand-logo.png'
 import { useState } from 'react'
 import MobileMenu from './MobileMenu'
+import { useCart } from '../context/CartContext'
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const { itemCount, hydrated } = useCart()
 
   return (
     <>
@@ -31,8 +33,13 @@ export default function Navbar() {
             <Image src="/images/search-icon-blue.png" alt="Search" width={22} height={22} className="object-contain invert brightness-0" />
           </button>
           <div className="w-px h-5 bg-white/50" />
-          <Link href="/cart" aria-label="Cart" className="hover:opacity-80 transition-opacity">
+          <Link href="/cart" aria-label="Cart" className="relative hover:opacity-80 transition-opacity">
             <Image src="/images/cart-icon-figma.png" alt="Cart" width={22} height={22} className="object-contain invert brightness-0" />
+            {hydrated && itemCount > 0 && (
+              <span className="absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] px-1 rounded-full bg-white text-navy text-[10px] font-cardo font-bold flex items-center justify-center border border-navy">
+                {itemCount > 99 ? '99+' : itemCount}
+              </span>
+            )}
           </Link>
         </div>
       </div>
@@ -73,8 +80,13 @@ export default function Navbar() {
             <Image src="/images/search-icon-blue.png" alt="Search" width={36} height={36} className="object-contain" />
           </button>
           <div className="w-px h-8 bg-navy/30" />
-          <Link href="/cart" aria-label="Cart" className="hover:opacity-80 transition-opacity">
+          <Link href="/cart" aria-label="Cart" className="relative hover:opacity-80 transition-opacity">
             <Image src="/images/cart-icon-figma.png" alt="Cart" width={36} height={36} className="object-contain" />
+            {hydrated && itemCount > 0 && (
+              <span className="absolute -top-1.5 -right-1.5 min-w-[22px] h-[22px] px-1 rounded-full bg-white text-navy text-xs font-cardo font-bold flex items-center justify-center border border-navy">
+                {itemCount > 99 ? '99+' : itemCount}
+              </span>
+            )}
           </Link>
         </div>
       </div>
