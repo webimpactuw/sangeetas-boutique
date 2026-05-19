@@ -5,6 +5,9 @@ import {
   addOrUpdateItem,
   calculateTotals,
   parseStoredCart,
+  updateItemQuantity,
+  removeItemById,
+  cartItemCount,
 } from '../app/lib/cart.js'
 
 describe('lineItemKey', () => {
@@ -84,5 +87,47 @@ describe('parseStoredCart', () => {
       { id: 'bad' },
     ])
     assert.equal(parseStoredCart(raw).length, 1)
+  })
+})
+
+const sampleLine = {
+  id: 'apparel-1::L::Blue',
+  productId: 'apparel-1',
+  name: 'Lehengas 01',
+  price: 150,
+  color: 'Blue',
+  size: 'L',
+  quantity: 1,
+  image: '/images/product-lehenga.png',
+}
+
+describe('updateItemQuantity', () => {
+  it('removes line when quantity decrements below 1', () => {
+    const next = updateItemQuantity([sampleLine], sampleLine.id, -1)
+    assert.equal(next.length, 0)
+  })
+
+  it('increments quantity up to 99', () => {
+    const next = updateItemQuantity([sampleLine], sampleLine.id, 2)
+    assert.equal(next[0].quantity, 3)
+  })
+})
+
+describe('removeItemById', () => {
+  it('removes matching line', () => {
+    const next = removeItemById([sampleLine], sampleLine.id)
+    assert.equal(next.length, 0)
+  })
+})
+
+describe('cartItemCount', () => {
+  it('sums quantities across lines', () => {
+    assert.equal(
+      cartItemCount([
+        { quantity: 2 },
+        { quantity: 3 },
+      ]),
+      5,
+    )
   })
 })

@@ -34,7 +34,7 @@ export function updateItemQuantity(items, id, delta) {
   return items
     .map((it) =>
       it.id === id
-        ? { ...it, quantity: Math.min(99, Math.max(1, it.quantity + delta)) }
+        ? { ...it, quantity: Math.min(99, it.quantity + delta) }
         : it,
     )
     .filter((it) => it.quantity > 0)
