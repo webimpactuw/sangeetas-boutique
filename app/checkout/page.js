@@ -1,7 +1,7 @@
 import CheckoutView from './CheckoutView'
 
 export const metadata = {
-  title: "Secure Checkout | Sangeeta's Boutique",
+  title: "Checkout | Sangeeta's Boutique",
 }
 
 export default function CheckoutPage() {
