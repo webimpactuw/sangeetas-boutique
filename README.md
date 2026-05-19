@@ -46,6 +46,10 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 └── public/                # Public, user-facing files (PNGs, SVGs)
 ```
 
+## Order inquiries (no online payment)
+
+Copy `.env.example` to `.env.local` and set Resend keys. Checkout sends an email to `SANJI_ORDER_EMAIL`; customers arrange payment offline with Sanji.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
