@@ -5,6 +5,10 @@ import Navbar from "./components/navbar";
 import Footer from "./components/Footer";
 import HelpButton from "./components/HelpButton";
 import CartProvider from "./components/CartProvider";
+import { serializeAuthUser } from "./lib/auth/user";
+import { mapSiteSettings } from "./lib/mapSanityContent";
+import { createClient } from "./lib/supabase/server";
+import { getSiteSettings } from "../sanity/lib/fetchPublicContent";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,12 +20,25 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata = {
-  title: "Sangeeta's Boutique",
-  description: "Elegance · Beauty · Tradition",
-};
+export const revalidate = 60;
 
-export default function RootLayout({ children }) {
+export async function generateMetadata() {
+  const raw = await getSiteSettings();
+  const s = mapSiteSettings(raw);
+  return {
+    title: s.siteTitle,
+    description: s.siteDescription,
+  };
+}
+
+export default async function RootLayout({ children }) {
+  const [raw, supabase] = await Promise.all([getSiteSettings(), createClient()]);
+  const s = mapSiteSettings(raw);
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  const authUser = serializeAuthUser(user);
+
   return (
     <html lang="en">
       <head>
@@ -33,12 +50,23 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-white`}
       >
-        <CartProvider>
-          <TopBanner />
-          <Navbar />
+        <CartProvider userId={authUser?.id ?? null}>
+          <TopBanner prefix={s.topBannerPrefix} promoCode={s.promoCode} />
+          <Navbar shipToLine={s.navbarShipToLine} authUser={authUser} />
           <div className="flex-1">{children}</div>
-          <Footer />
-          <HelpButton />
+          <Footer
+            phone={s.footerPhone}
+            email={s.footerEmail}
+            hours={s.footerHours}
+            copyrightLine={s.copyrightLine}
+            quickLinks={s.footerQuickLinks}
+            policies={s.footerPolicies}
+          />
+          <HelpButton
+            title={s.helpTitle}
+            ctaLabel={s.helpCtaLabel}
+            email={s.helpEmail}
+          />
         </CartProvider>
       </body>
     </html>

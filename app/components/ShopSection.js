@@ -1,14 +1,9 @@
 import Image from 'next/image'
 import Link from 'next/link'
-
-const categories = [
-  { name: 'Lehengas', image: '/images/product-lehenga.png', href: '/apparel?category=lehengas' },
-  { name: 'Dresses', image: '/images/product-dress.png', href: '/apparel?category=dresses' },
-  { name: 'Jewelry', image: '/images/product-sari.png', href: '/accessories?category=jewelry' },
-  { name: 'Kids Wear', image: '/images/product-kurta.png', href: '/apparel?category=kids' },
-]
+import { DEFAULT_SHOP_CATEGORIES } from '../lib/contentDefaults'
 
 function CategoryCard({ cat }) {
+  const alt = cat.alt ?? cat.name
   return (
     <Link
       href={cat.href}
@@ -16,7 +11,7 @@ function CategoryCard({ cat }) {
     >
       <Image
         src={cat.image}
-        alt={cat.name}
+        alt={alt}
         fill
         className="object-cover group-hover:scale-105 transition-transform duration-500"
         sizes="(max-width: 768px) 50vw, 25vw"
@@ -34,15 +29,21 @@ function CategoryCard({ cat }) {
   )
 }
 
-export default function ShopSection() {
+/**
+ * @param {{ heading?: string; categories?: Array<{ name: string; image: string; href: string; alt?: string }> }} props
+ */
+export default function ShopSection({ heading, categories }) {
+  const title = heading?.trim() || 'SHOP BY CATEGORY'
+  const cats = categories?.length ? categories : DEFAULT_SHOP_CATEGORIES
+
   return (
     <section className="bg-white py-10 md:py-16">
       <h2 className="font-cardo font-bold text-navy text-2xl md:text-5xl text-center mb-6 md:mb-12 tracking-wide">
-        SHOP BY CATEGORY
+        {title}
       </h2>
 
       <div className="md:hidden flex gap-3 overflow-x-auto px-4 pb-2 snap-x snap-mandatory scrollbar-hide">
-        {categories.map((cat) => (
+        {cats.map((cat) => (
           <div key={cat.name} className="flex-shrink-0 w-[42vw] max-w-[180px] snap-start">
             <CategoryCard cat={cat} />
           </div>
@@ -51,7 +52,7 @@ export default function ShopSection() {
 
       <div className="hidden md:block max-w-7xl mx-auto px-8">
         <div className="grid grid-cols-4 gap-6">
-          {categories.map((cat) => (
+          {cats.map((cat) => (
             <CategoryCard key={cat.name} cat={cat} />
           ))}
         </div>

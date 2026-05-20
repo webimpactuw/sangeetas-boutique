@@ -2,6 +2,6 @@
 
 import { CartProvider as Provider } from '../context/CartContext'
 
-export default function CartProvider({ children }) {
-  return <Provider>{children}</Provider>
+export default function CartProvider({ children, userId = null }) {
+  return <Provider userId={userId}>{children}</Provider>
 }

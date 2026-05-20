@@ -3,46 +3,27 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-
-const slides = [
-  {
-    title: 'Spring Saris',
-    cta: 'SHOP NOW',
-    href: '#saris',
-    image: '/images/hero-main.png',
-    alt: 'Spring Saris collection',
-  },
-  {
-    title: 'New Lehengas',
-    cta: 'SHOP NOW',
-    href: '#lehengas',
-    image: '/images/product-lehenga.png',
-    alt: 'Lehenga collection',
-  },
-  {
-    title: 'Dresses for Every Occasion',
-    cta: 'SHOP NOW',
-    href: '#dresses',
-    image: '/images/product-dress.png',
-    alt: 'Dresses collection',
-  },
-]
+import { DEFAULT_HERO_SLIDES } from '../lib/contentDefaults'
 
 const AUTOPLAY_MS = 6000
 
-export default function HeroBanner() {
+/**
+ * @param {{ slides?: Array<{ title: string; cta: string; href: string; image: string; alt: string }> }} props
+ */
+export default function HeroBanner({ slides }) {
+  const list = slides?.length ? slides : DEFAULT_HERO_SLIDES
   const [index, setIndex] = useState(0)
   const [paused, setPaused] = useState(false)
 
   useEffect(() => {
     if (paused) return
     const id = setInterval(() => {
-      setIndex((i) => (i + 1) % slides.length)
+      setIndex((i) => (i + 1) % list.length)
     }, AUTOPLAY_MS)
     return () => clearInterval(id)
-  }, [paused])
+  }, [paused, list.length])
 
-  const goTo = (i) => setIndex((i + slides.length) % slides.length)
+  const goTo = (i) => setIndex((i + list.length) % list.length)
   const prev = () => goTo(index - 1)
   const next = () => goTo(index + 1)
 
@@ -54,9 +35,9 @@ export default function HeroBanner() {
       aria-roledescription="carousel"
       aria-label="Featured collections"
     >
-      {slides.map((slide, i) => (
+      {list.map((slide, i) => (
         <div
-          key={slide.title}
+          key={`${slide.title}-${i}`}
           className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
             i === index ? 'opacity-100' : 'opacity-0 pointer-events-none'
           }`}
@@ -68,6 +49,7 @@ export default function HeroBanner() {
             fill
             className="object-cover"
             priority={i === 0}
+            sizes="100vw"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-black/15 to-transparent" />
           <div className="absolute inset-0 flex flex-col justify-center px-6 md:px-20">
@@ -102,7 +84,7 @@ export default function HeroBanner() {
       </button>
 
       <div className="absolute bottom-3 md:bottom-5 left-0 right-0 flex justify-center gap-2">
-        {slides.map((_, i) => (
+        {list.map((_, i) => (
           <button
             key={i}
             type="button"

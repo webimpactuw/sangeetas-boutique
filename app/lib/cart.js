@@ -1,4 +1,12 @@
-export const CART_STORAGE_KEY = 'sanji-cart-v1'
+export const GUEST_CART_STORAGE_KEY = 'sanji-cart-v1'
+
+/** @deprecated use getCartStorageKey */
+export const CART_STORAGE_KEY = GUEST_CART_STORAGE_KEY
+
+export function getCartStorageKey(userId) {
+  if (userId) return `${GUEST_CART_STORAGE_KEY}-user-${userId}`
+  return GUEST_CART_STORAGE_KEY
+}
 export const DEFAULT_TAX_RATE = 0.025
 
 export function lineItemKey(productId, size, color) {

@@ -3,6 +3,8 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { DASHBOARD_LINKS } from '@/app/lib/auth/routes'
+import UserAvatar from './auth/UserAvatar'
 
 const menuItems = [
   {
@@ -43,7 +45,10 @@ const menuItems = [
   },
 ]
 
-export default function MobileMenu({ isOpen, onClose }) {
+/**
+ * @param {{ isOpen: boolean, onClose: () => void, authUser?: { id: string, email: string | null, displayName: string, initial: string } | null }} props
+ */
+export default function MobileMenu({ isOpen, onClose, authUser = null }) {
   const [activeSubmenu, setActiveSubmenu] = useState(null)
 
   const handleClose = () => {
@@ -98,6 +103,43 @@ export default function MobileMenu({ isOpen, onClose }) {
 
         {/* Menu content */}
         <div className="px-5 pt-4">
+          <div className="pb-4 mb-2 border-b border-gray-200">
+            {authUser ? (
+              <div className="space-y-3">
+                <div className="flex items-center gap-3">
+                  <UserAvatar initial={authUser.initial} size="sm" />
+                  <span className="font-cardo font-bold text-navy text-xl capitalize">
+                    Hi, {authUser.displayName}
+                  </span>
+                </div>
+                <Link
+                  href="/dashboard"
+                  onClick={handleClose}
+                  className="block font-cardo text-navy text-lg hover:underline"
+                >
+                  My Dashboard
+                </Link>
+                {DASHBOARD_LINKS.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={handleClose}
+                    className="block font-cardo text-navy text-lg hover:underline"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            ) : (
+              <Link
+                href="/login"
+                onClick={handleClose}
+                className="font-cardo text-navy text-xl hover:underline"
+              >
+                Sign in
+              </Link>
+            )}
+          </div>
           {activeSubmenu === null ? (
             /* Main menu */
             <ul className="flex flex-col">
