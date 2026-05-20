@@ -274,7 +274,7 @@ export default function CheckoutView() {
           </div>
 
           <p className="font-cardo text-navy/80 text-sm md:text-base mb-4 leading-relaxed">
-            This site does not process payments. After you submit, Sanji will contact you to arrange payment and confirm your order.
+            This site does not process payments. If Sanji confirms your order, you will receive a separate email with PayPal instructions.
           </p>
 
           {formError && (

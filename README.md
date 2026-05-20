@@ -48,7 +48,14 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 
 ## Order inquiries (no online payment)
 
-Copy `.env.example` to `.env.local` and set Resend keys. Checkout sends an email to `SANJI_ORDER_EMAIL`; customers arrange payment offline with Sanji.
+Copy `.env.example` to `.env.local` and set:
+
+- `RESEND_API_KEY`, `SANJI_ORDER_EMAIL`, `RESEND_FROM_EMAIL`
+- `ORDER_APPROVAL_SECRET` (random string; signs approve links)
+- `PAYPAL_ME_USERNAME` (Sanji's PayPal.me handle, no `@`)
+- `NEXT_PUBLIC_SITE_URL` (e.g. `http://localhost:3000`)
+
+**Flow:** Customer submits inquiry → Sanji gets an email with **Approve & send payment link** → one tap emails the customer PayPal instructions (link + QR). The site never processes payments.
 
 ## Learn More
 

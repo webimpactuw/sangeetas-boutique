@@ -17,7 +17,7 @@ export default function ConfirmationClient() {
           Inquiry received
         </h1>
         <p className="font-cardo text-navy/80 text-base md:text-lg mb-8 md:mb-10">
-          Thank you! Sanji will email you to confirm your order and arrange payment. No payment was charged on this website.
+          Thank you! Sanji will review your inquiry. If confirmed, you will get a separate email with PayPal payment instructions. Nothing has been charged on this website.
         </p>
         <dl className="bg-white border border-sanji-border rounded-sm px-6 py-6 mb-8 text-left max-w-xl mx-auto font-cardo text-navy text-sm md:text-base grid grid-cols-3 gap-y-2">
           <dt className="font-bold">Reference #</dt>
