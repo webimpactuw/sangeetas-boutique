@@ -5,12 +5,13 @@ import Image from 'next/image'
 import logo from '@/public/images/brand-logo.png'
 import { useState } from 'react'
 import { DEFAULT_NAVBAR_SHIP_TO } from '../lib/contentDefaults'
+import HeaderAuthIcons from './auth/HeaderAuthIcons'
 import MobileMenu from './MobileMenu'
 
 /**
- * @param {{ shipToLine?: string }} props
+ * @param {{ shipToLine?: string, authUser?: { id: string, email: string | null, displayName: string, initial: string } | null }} props
  */
-export default function Navbar({ shipToLine }) {
+export default function Navbar({ shipToLine, authUser = null }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const shipLine = shipToLine?.trim() || DEFAULT_NAVBAR_SHIP_TO
 
@@ -18,7 +19,6 @@ export default function Navbar({ shipToLine }) {
     <>
       {/* MOBILE TOP BAR (navy) */}
       <div className="md:hidden bg-navy flex items-center justify-between px-4 py-2">
-        {/* Hamburger menu */}
         <button
           onClick={() => setMenuOpen(true)}
           aria-label="Open menu"
@@ -30,15 +30,8 @@ export default function Navbar({ shipToLine }) {
           </svg>
         </button>
 
-        {/* Search & Cart */}
-        <div className="flex items-center gap-3">
-          <button aria-label="Search" className="hover:opacity-80 transition-opacity">
-            <Image src="/images/search-icon-blue.png" alt="Search" width={22} height={22} className="object-contain invert brightness-0" />
-          </button>
-          <div className="w-px h-5 bg-white/50" />
-          <Link href="/cart" aria-label="Cart" className="hover:opacity-80 transition-opacity">
-            <Image src="/images/cart-icon-figma.png" alt="Cart" width={22} height={22} className="object-contain invert brightness-0" />
-          </Link>
+        <div className="flex items-center gap-2 sm:gap-3">
+          <HeaderAuthIcons authUser={authUser} invert />
         </div>
       </div>
 
@@ -53,14 +46,12 @@ export default function Navbar({ shipToLine }) {
         />
       </div>
 
-      {/* WHITE BANNER (logo center, Ship To left on desktop, icons right on desktop) */}
+      {/* WHITE BANNER */}
       <div className="bg-white flex items-center justify-center relative px-4 md:px-10 py-4 md:py-6">
-        {/* Desktop: Ship To text (left) */}
         <p className="hidden md:block absolute top-8 left-10 font-cardo italic text-black text-lg">
           {shipLine}
         </p>
 
-        {/* Brand logo (centered) */}
         <Link href="/">
           <Image
             src={logo}
@@ -72,19 +63,12 @@ export default function Navbar({ shipToLine }) {
           />
         </Link>
 
-        {/* Desktop: Search & Cart icons (right) */}
-        <div className="hidden md:flex items-center gap-3 absolute top-8 right-10">
-          <button aria-label="Search" className="hover:opacity-80 transition-opacity">
-            <Image src="/images/search-icon-blue.png" alt="Search" width={36} height={36} className="object-contain" />
-          </button>
-          <div className="w-px h-8 bg-navy/30" />
-          <Link href="/cart" aria-label="Cart" className="hover:opacity-80 transition-opacity">
-            <Image src="/images/cart-icon-figma.png" alt="Cart" width={36} height={36} className="object-contain" />
-          </Link>
+        <div className="hidden md:flex items-center gap-4 absolute top-8 right-10">
+          <HeaderAuthIcons authUser={authUser} />
         </div>
       </div>
 
-      {/* NAVIGATION BAR (desktop only, light blue-grey) */}
+      {/* NAVIGATION BAR (desktop only) */}
       <nav className="hidden md:block bg-sanji-border/40">
         <ul className="flex items-center justify-center gap-12 py-3 font-cardo text-navy text-lg tracking-wide">
           <li>
@@ -115,11 +99,13 @@ export default function Navbar({ shipToLine }) {
         </ul>
       </nav>
 
-      {/* MOBILE NAV SEPARATOR (same color as desktop nav bar) */}
       <div className="md:hidden h-2 bg-sanji-border/40" />
 
-      {/* Mobile slide-out menu */}
-      <MobileMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
+      <MobileMenu
+        isOpen={menuOpen}
+        onClose={() => setMenuOpen(false)}
+        authUser={authUser}
+      />
     </>
   )
 }

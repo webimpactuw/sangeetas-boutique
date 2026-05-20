@@ -4,7 +4,9 @@ import TopBanner from "./components/TopBanner";
 import Navbar from "./components/navbar";
 import Footer from "./components/Footer";
 import HelpButton from "./components/HelpButton";
+import { serializeAuthUser } from "./lib/auth/user";
 import { mapSiteSettings } from "./lib/mapSanityContent";
+import { createClient } from "./lib/supabase/server";
 import { getSiteSettings } from "../sanity/lib/fetchPublicContent";
 
 const geistSans = Geist({
@@ -29,8 +31,12 @@ export async function generateMetadata() {
 }
 
 export default async function RootLayout({ children }) {
-  const raw = await getSiteSettings();
+  const [raw, supabase] = await Promise.all([getSiteSettings(), createClient()]);
   const s = mapSiteSettings(raw);
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  const authUser = serializeAuthUser(user);
 
   return (
     <html lang="en">
@@ -44,7 +50,7 @@ export default async function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-white`}
       >
         <TopBanner prefix={s.topBannerPrefix} promoCode={s.promoCode} />
-        <Navbar shipToLine={s.navbarShipToLine} />
+        <Navbar shipToLine={s.navbarShipToLine} authUser={authUser} />
         <div className="flex-1">{children}</div>
         <Footer
           phone={s.footerPhone}
