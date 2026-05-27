@@ -46,6 +46,15 @@ export default function CheckoutView() {
     const form = e.currentTarget
     const fd = new FormData(form)
 
+    const email = fd.get('email')?.toString().trim() || ''
+    const phone = fd.get('phone')?.toString().trim() || ''
+
+    if (delivery === 'pickup' && (!email || !phone)) {
+      setFormError('Missing required fields')
+      setSubmitting(false)
+      return
+    }
+
     const customer = {
       firstName: fd.get('firstName')?.toString() || '',
       lastName: fd.get('lastName')?.toString() || '',
@@ -98,7 +107,7 @@ export default function CheckoutView() {
           Checkout
         </h1>
         <p className="font-cardo italic text-navy/70 text-base md:text-lg mb-8">
-          Your cart is empty.
+          Your bag is empty.
         </p>
         <Link
           href="/apparel"
@@ -119,7 +128,7 @@ export default function CheckoutView() {
         href="/cart"
         className="inline-block mb-8 md:mb-10 font-cardo text-navy text-sm md:text-base underline underline-offset-4 hover:no-underline"
       >
-        &larr; Return to Cart
+        &larr; Return to My Bag
       </Link>
 
       <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
@@ -233,7 +242,7 @@ export default function CheckoutView() {
 
         <aside className="bg-light-bg border border-sanji-border rounded-sm px-5 md:px-7 py-6 md:py-8 h-fit lg:sticky lg:top-6">
           <h2 className="font-cardo font-bold text-navy text-xl md:text-2xl mb-4 md:mb-5">
-            My Cart ({items.length} {items.length === 1 ? 'Item' : 'Items'})
+            My Bag ({items.length} {items.length === 1 ? 'Item' : 'Items'})
           </h2>
           <div className="flex flex-col gap-4 md:gap-5 mb-5 md:mb-6">
             {items.map((item) => (
@@ -263,7 +272,11 @@ export default function CheckoutView() {
             </div>
             <div className="flex justify-between">
               <dt>Shipping</dt>
-              <dd>{shipCost === 0 ? 'Free \u00b7 Issaquah, WA' : `$${shipCost.toFixed(2)}`}</dd>
+              <dd>
+                {delivery === 'pickup' || shipCost === 0
+                  ? 'Free \u00b7 Issaquah, WA'
+                  : `$${shipCost.toFixed(2)}`}
+              </dd>
             </div>
           </dl>
           <div className="border-t border-sanji-border pt-3 md:pt-4 mb-5 md:mb-6">
@@ -278,7 +291,9 @@ export default function CheckoutView() {
           </p>
 
           {formError && (
-            <p className="font-cardo text-red-700 text-sm mb-3" role="alert">{formError}</p>
+            <p className="font-cardo text-red-600 text-sm md:text-base mb-3 font-bold" role="alert">
+              {formError}
+            </p>
           )}
 
           <button

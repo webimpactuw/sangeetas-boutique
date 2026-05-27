@@ -1,4 +1,6 @@
 import Image from 'next/image'
+import FaqSection from '../components/FaqSection'
+import MeetTheDesigner from '../components/MeetTheDesigner'
 
 export const metadata = {
   title: "About Sanji's | Sangeeta's Boutique",
@@ -28,38 +30,7 @@ const offerings = [
 export default function AboutPage() {
   return (
     <main className="bg-white">
-      <section className="py-12 md:py-20 px-6 md:px-16">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
-          <div>
-            <p className="font-cardo italic text-navy/70 tracking-[0.2em] text-xs md:text-sm uppercase mb-3 md:mb-4">
-              Meet the Designer
-            </p>
-            <h1 className="font-cardo font-bold italic text-navy text-5xl md:text-7xl mb-4 md:mb-6">
-              Sanji
-            </h1>
-            <div className="w-16 h-px bg-navy/40 mb-5 md:mb-6" />
-            <p className="font-cardo text-navy/85 text-base md:text-lg leading-relaxed mb-4 md:mb-5">
-              Inspired by tradition and driven by a passion for detail, Sanji
-              creates pieces that blend timeless craftsmanship with a modern,
-              elegant perspective.
-            </p>
-            <p className="font-cardo text-navy/85 text-base md:text-lg leading-relaxed">
-              Her work celebrates both cultural heritage and personal
-              expression, bringing traditional Indian artistry into contemporary
-              life with grace and authenticity.
-            </p>
-          </div>
-          <div className="relative w-full aspect-[4/5] md:aspect-[3/4]">
-            <Image
-              src="/images/hero-main.png"
-              alt="Sanji, designer of Sanji's Label"
-              fill
-              className="object-cover rounded-sm"
-              priority
-            />
-          </div>
-        </div>
-      </section>
+      <MeetTheDesigner />
 
       <section className="bg-light-bg py-12 md:py-20 px-6 md:px-16">
         <div className="max-w-5xl mx-auto">
@@ -116,6 +87,8 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      <FaqSection />
     </main>
   )
 }

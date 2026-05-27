@@ -1,4 +1,5 @@
 import BookingForm from './BookingForm'
+import BookingHours from '../components/BookingHours'
 
 export const metadata = {
   title: "Book an Appointment | Sangeeta's Boutique",
@@ -15,10 +16,12 @@ export default function BookingPage() {
             Schedule Your Appointment with Sanji
           </h1>
           <p className="font-cardo italic text-navy/75 text-sm md:text-base max-w-2xl mx-auto">
-            Complimentary in-person styling and fitting. Tell us a bit about
-            you and pick a time that works.
+            Complimentary in-person styling and fitting. Share your preferred date and time —
+            Sanji will follow up to confirm and learn about your needs before you visit.
           </p>
         </header>
+
+        <BookingHours />
 
         <BookingForm />
       </div>

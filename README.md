@@ -57,6 +57,20 @@ Copy `.env.example` to `.env.local` and set:
 
 **Flow:** Customer submits inquiry → Sanji gets an email with **Approve & send payment link** → one tap emails the customer PayPal instructions (link + QR). The site never processes payments.
 
+Run **`npm run verify:resend`** before deploy. Full checklist: [`docs/RESEND-HANDOFF.md`](docs/RESEND-HANDOFF.md).
+
+## Booking appointments
+
+The `/booking` form emails Sanji and the customer via **the same Resend env vars** as order inquiries (`RESEND_API_KEY`, `SANJI_ORDER_EMAIL`, `RESEND_FROM_EMAIL`). Sanji confirms timing manually by reply — the site does not auto-schedule.
+
+## Account favorites (wishlist)
+
+Signed-in customers can heart products; rows are stored in Supabase per user.
+
+1. In the [Supabase SQL Editor](https://supabase.com/dashboard), run the script in `supabase/migrations/20260519000000_favorites.sql` (creates `favorites` table + RLS).
+2. Ensure `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` are set in `.env.local`.
+3. Favorites appear under **Dashboard → Favorites** and persist across sessions.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

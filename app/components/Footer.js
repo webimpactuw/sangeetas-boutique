@@ -19,19 +19,6 @@ function HoursRow({ label, time }) {
   )
 }
 
-function PaymentIcon({ label, children, bg = '#ffffff' }) {
-  return (
-    <span
-      role="img"
-      aria-label={label}
-      className="inline-flex items-center justify-center w-10 h-6 md:w-11 md:h-7 rounded-[3px] border border-white/30"
-      style={{ background: bg }}
-    >
-      {children}
-    </span>
-  )
-}
-
 /**
  * @param {{
  *   phone?: string
@@ -56,6 +43,7 @@ export default function Footer({
   const copy = copyrightLine?.trim() || DEFAULT_FOOTER_CONTACT.copyright
   const ql = quickLinks?.length ? quickLinks : DEFAULT_FOOTER_QUICK_LINKS
   const pol = policies?.length ? policies : DEFAULT_FOOTER_POLICIES
+  const telHref = `tel:+1${tel.replace(/\D/g, '')}`
 
   return (
     <footer className="bg-navy text-white pt-10 md:pt-14 pb-6 md:pb-7 px-6 md:px-16">
@@ -111,78 +99,16 @@ export default function Footer({
 
           <div>
             <h3 className="font-cardo font-bold text-base md:text-lg mb-3 md:mb-4">
-              Payment Methods
-            </h3>
-            <div className="grid grid-cols-2 gap-2 max-w-[140px] mb-5 md:mb-6">
-              <PaymentIcon label="American Express" bg="#2e77bb">
-                <span
-                  className="text-white font-bold tracking-tight"
-                  style={{ fontFamily: 'Helvetica, Arial, sans-serif', fontSize: '7.5px' }}
-                >
-                  AMEX
-                </span>
-              </PaymentIcon>
-              <PaymentIcon label="Klarna" bg="#ffa8cd">
-                <span
-                  className="text-black font-bold tracking-tight"
-                  style={{ fontFamily: 'Helvetica, Arial, sans-serif', fontSize: '8px' }}
-                >
-                  Klarna.
-                </span>
-              </PaymentIcon>
-              <PaymentIcon label="Visa" bg="#1a1f71">
-                <span
-                  className="text-white font-bold italic tracking-tight"
-                  style={{ fontFamily: 'Helvetica, Arial, sans-serif', fontSize: '9px' }}
-                >
-                  VISA
-                </span>
-              </PaymentIcon>
-              <PaymentIcon label="Apple Pay" bg="#000000">
-                <span
-                  className="text-white font-bold tracking-tight flex items-center gap-0.5"
-                  style={{ fontFamily: '-apple-system, system-ui, sans-serif', fontSize: '8px' }}
-                >
-                  <svg width="7" height="9" viewBox="0 0 16 20" fill="currentColor" aria-hidden>
-                    <path d="M13.6 10.6c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.9-3.5.9-.7 0-1.9-.9-3.1-.9-1.6 0-3.1 1-3.9 2.4-1.7 2.9-.4 7.2 1.2 9.6.8 1.2 1.7 2.5 2.9 2.4 1.2 0 1.6-.7 3-.7s1.8.7 3 .7 2-1.2 2.8-2.4c.9-1.4 1.2-2.7 1.3-2.8-.1 0-2.4-.9-2.4-3.6zM11.4 4c.6-.7 1-1.7.9-2.7-.9 0-2 .6-2.6 1.3-.6.6-1.1 1.6-.9 2.6 1 .1 2-.5 2.6-1.2z"/>
-                  </svg>
-                  Pay
-                </span>
-              </PaymentIcon>
-              <PaymentIcon label="Mastercard" bg="#ffffff">
-                <span className="relative inline-block w-7 h-4">
-                  <span
-                    className="absolute left-0 top-0 w-4 h-4 rounded-full"
-                    style={{ background: '#eb001b' }}
-                  />
-                  <span
-                    className="absolute right-0 top-0 w-4 h-4 rounded-full mix-blend-multiply"
-                    style={{ background: '#f79e1b' }}
-                  />
-                </span>
-              </PaymentIcon>
-              <PaymentIcon label="Discover" bg="#ffffff">
-                <span className="flex items-center gap-0.5">
-                  <span
-                    style={{ fontFamily: 'Helvetica, Arial, sans-serif', fontSize: '7px', color: '#231f20', fontWeight: 700 }}
-                  >
-                    DISC
-                  </span>
-                  <span
-                    className="inline-block w-1.5 h-1.5 rounded-full"
-                    style={{ background: '#ff6000' }}
-                  />
-                </span>
-              </PaymentIcon>
-            </div>
-            <h3 className="font-cardo font-bold text-base md:text-lg mb-3 md:mb-4">
               Shop Hours
             </h3>
-            <ul className="flex flex-col gap-1.5 md:gap-2">
+            <ul className="flex flex-col gap-1.5 md:gap-2 mb-3">
               {hourRows.map((row) => (
                 <HoursRow key={`${row.label}-${row.time}`} label={row.label} time={row.time} />
               ))}
             </ul>
+            <p className="font-cardo italic text-white/60 text-xs md:text-sm leading-relaxed">
+              {DEFAULT_FOOTER_CONTACT.hoursNote}
+            </p>
           </div>
 
           <div>
@@ -192,7 +118,12 @@ export default function Footer({
             <ul className="flex flex-col gap-1.5 md:gap-2 font-cardo text-sm md:text-[15px] text-white/85 mb-5 md:mb-6">
               <li>
                 <span className="block">Phone:</span>
-                <span className="block">{tel}</span>
+                <a
+                  href={telHref}
+                  className="block hover:text-white hover:underline underline-offset-2 transition-colors"
+                >
+                  {tel}
+                </a>
               </li>
               <li>
                 <span className="block">Email:</span>
@@ -204,53 +135,23 @@ export default function Footer({
                 </a>
               </li>
               <li>
-                <Link
-                  href="#contact"
+                <a
+                  href={`mailto:${em}?subject=${encodeURIComponent('Shop address request')}`}
                   className="hover:text-white hover:underline underline-offset-2 transition-colors"
                 >
-                  Request Shop Address
-                </Link>
+                  {DEFAULT_FOOTER_CONTACT.shopAddressLabel}
+                </a>
               </li>
             </ul>
             <div className="flex items-center gap-3 md:gap-4">
-              <a
-                href="#instagram"
-                aria-label="Instagram"
-                className="hover:opacity-80 transition-opacity"
-              >
-                <Image
-                  src="/images/social-instagram.png"
-                  alt=""
-                  width={22}
-                  height={22}
-                  className="object-contain"
-                />
+              <a href="#instagram" aria-label="Instagram" className="hover:opacity-80 transition-opacity">
+                <Image src="/images/social-instagram.png" alt="" width={22} height={22} className="object-contain" />
               </a>
-              <a
-                href="#facebook"
-                aria-label="Facebook"
-                className="hover:opacity-80 transition-opacity"
-              >
-                <Image
-                  src="/images/social-facebook.png"
-                  alt=""
-                  width={22}
-                  height={22}
-                  className="object-contain"
-                />
+              <a href="#facebook" aria-label="Facebook" className="hover:opacity-80 transition-opacity">
+                <Image src="/images/social-facebook.png" alt="" width={22} height={22} className="object-contain" />
               </a>
-              <a
-                href="#whatsapp"
-                aria-label="WhatsApp"
-                className="hover:opacity-80 transition-opacity"
-              >
-                <Image
-                  src="/images/social-whatsapp.png"
-                  alt=""
-                  width={22}
-                  height={22}
-                  className="object-contain"
-                />
+              <a href="#whatsapp" aria-label="WhatsApp" className="hover:opacity-80 transition-opacity">
+                <Image src="/images/social-whatsapp.png" alt="" width={22} height={22} className="object-contain" />
               </a>
             </div>
           </div>

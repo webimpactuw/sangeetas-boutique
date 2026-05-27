@@ -5,9 +5,10 @@ import { useSearchParams } from 'next/navigation'
 
 export default function ConfirmationContent() {
   const sp = useSearchParams()
-  const name = sp.get('name') || 'Jane Smith'
-  const date = sp.get('date') || '1/1/2026'
-  const time = sp.get('time') || '12 pm (PST)'
+  const name = sp.get('name') || 'Guest'
+  const date = sp.get('date') || '—'
+  const time = sp.get('time') || '—'
+  const ref = sp.get('ref') || ''
 
   return (
     <div className="max-w-3xl mx-auto bg-light-bg border border-sanji-border rounded-sm px-6 md:px-12 py-10 md:py-14 text-center">
@@ -32,15 +33,22 @@ export default function ConfirmationContent() {
       </div>
 
       <h1 className="font-cardo font-bold italic text-navy text-4xl md:text-6xl mb-3 md:mb-4">
-        Booking Confirmed
+        Request received
       </h1>
-      <p className="font-cardo text-navy/80 text-base md:text-lg mb-8 md:mb-10">
-        Thank you for booking with Sanji!
+      <p className="font-cardo text-navy/80 text-base md:text-lg mb-2">
+        Thank you — Sanji will confirm your appointment by email or phone.
       </p>
+      {ref ? (
+        <p className="font-cardo text-navy/70 text-sm md:text-base mb-8 md:mb-10">
+          Reference: <span className="font-bold text-navy">{ref}</span>
+        </p>
+      ) : (
+        <p className="mb-8 md:mb-10" />
+      )}
 
       <div className="bg-white border border-sanji-border rounded-sm px-6 md:px-10 py-6 md:py-8 mb-8 md:mb-10 text-left max-w-xl mx-auto">
         <h2 className="font-cardo font-bold text-navy text-xl md:text-2xl mb-4 md:mb-5">
-          Booking Details
+          Your request
         </h2>
         <dl className="grid grid-cols-3 gap-y-2 md:gap-y-3 font-cardo text-navy text-sm md:text-base">
           <dt className="font-bold">Name</dt>
@@ -50,13 +58,17 @@ export default function ConfirmationContent() {
           <dt className="font-bold">Time</dt>
           <dd className="col-span-2">{time}</dd>
         </dl>
+        <p className="font-cardo italic text-navy/65 text-sm mt-5 leading-relaxed">
+          This is not a finalized booking until Sanji replies. Check your inbox for a
+          confirmation email.
+        </p>
       </div>
 
       <Link
         href="/"
         className="inline-block font-cardo text-white text-base md:text-lg bg-navy hover:bg-navy/90 transition-colors py-3 md:py-3.5 px-10 md:px-14 rounded-sm"
       >
-        Continue shopping!
+        Continue shopping
       </Link>
     </div>
   )

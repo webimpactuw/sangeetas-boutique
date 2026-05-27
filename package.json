@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "test": "node --test tests/**/*.test.js",
+    "verify:resend": "node scripts/verify-resend-handoff.mjs",
     "sanity:schemas:deploy": "sanity schemas deploy",
     "sanity:seed": "node scripts/seed-sanity.mjs"
   },

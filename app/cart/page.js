@@ -1,7 +1,7 @@
 import CartView from './CartView'
 
 export const metadata = {
-  title: "My Cart | Sangeeta's Boutique",
+  title: "My Bag | Sangeeta's Boutique",
 }
 
 export default function CartPage() {

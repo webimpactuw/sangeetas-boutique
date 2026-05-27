@@ -1,6 +1,10 @@
 'use server'
 
 import { Resend } from 'resend'
+import {
+  getResendConfig,
+  RESEND_NOT_CONFIGURED_ERROR,
+} from '../lib/resendConfig'
 import { calculateTotals, DEFAULT_TAX_RATE } from '../lib/cart'
 import { buildApprovalUrl, createApprovalToken } from '../lib/orderApprovalToken'
 
@@ -294,13 +298,12 @@ function buildCustomerEmailHtml({ orderNumber, customer, items, totals, shipping
 }
 
 export async function submitOrderInquiry(payload) {
-  const apiKey = process.env.RESEND_API_KEY
-  const sanjiEmail = process.env.SANJI_ORDER_EMAIL
-  const from = process.env.RESEND_FROM_EMAIL
-
-  if (!apiKey || !sanjiEmail || !from) {
-    return { ok: false, error: 'Email is not configured. Please contact the boutique directly.' }
+  const config = getResendConfig()
+  if (!config.ok) {
+    console.error('Resend not configured; missing:', config.missing.join(', '))
+    return { ok: false, error: RESEND_NOT_CONFIGURED_ERROR }
   }
+  const { apiKey, sanjiEmail, from } = config
 
   const { customer, items, shippingId, delivery } = payload
 

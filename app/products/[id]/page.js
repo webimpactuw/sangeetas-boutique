@@ -22,6 +22,10 @@ export default async function ProductPage({ params }) {
   const product = getProduct(id)
   if (!product) notFound()
 
+  const related = allProducts
+    .filter((p) => p.id !== product.id && p.category === product.category)
+    .slice(0, 4)
+
   const isApparel = product.id.startsWith('apparel')
   const breadcrumbHref = isApparel ? '/apparel' : '/accessories'
   const breadcrumbLabel = isApparel ? 'Apparel' : 'Accessories'
@@ -39,7 +43,7 @@ export default async function ProductPage({ params }) {
           <span className="text-navy">{product.name}</span>
         </nav>
 
-        <ProductDetail product={product} />
+        <ProductDetail product={product} related={related} />
       </div>
     </main>
   )

@@ -3,72 +3,168 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import logo from '@/public/images/brand-logo.png'
-import { useState } from 'react'
-import { DEFAULT_NAVBAR_SHIP_TO } from '../lib/contentDefaults'
+import { useEffect, useState } from 'react'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import {
+  NAV_ACCESSORIES_LINKS,
+  NAV_APPAREL_LINKS,
+} from '../lib/contentDefaults'
 import HeaderAuthIcons from './auth/HeaderAuthIcons'
 import MobileMenu from './MobileMenu'
+import NavDropdown from './NavDropdown'
+
+function SearchIcon({ className = 'text-navy' }) {
+  return (
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      className={className}
+      aria-hidden
+    >
+      <circle cx="11" cy="11" r="7" />
+      <path d="M20 20l-4-4" strokeLinecap="round" />
+    </svg>
+  )
+}
 
 /**
- * @param {{ shipToLine?: string, authUser?: { id: string, email: string | null, displayName: string, initial: string } | null }} props
+ * @param {{ authUser?: { id: string, email: string | null, displayName: string, initial: string } | null }} props
  */
-export default function Navbar({ shipToLine, authUser = null }) {
+export default function Navbar({ authUser = null }) {
+  const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  const urlQuery = searchParams.get('q') ?? ''
+
   const [menuOpen, setMenuOpen] = useState(false)
-  const shipLine = shipToLine?.trim() || DEFAULT_NAVBAR_SHIP_TO
+  const [searchQuery, setSearchQuery] = useState('')
+  const [mobileSearchOpen, setMobileSearchOpen] = useState(false)
+
+  useEffect(() => {
+    if (
+      pathname === '/search' ||
+      pathname === '/apparel' ||
+      pathname === '/accessories'
+    ) {
+      setSearchQuery(urlQuery)
+      if (urlQuery) setMobileSearchOpen(true)
+    }
+  }, [pathname, urlQuery])
+
+  const handleSearch = (e) => {
+    e.preventDefault()
+    const q = searchQuery.trim()
+    if (!q) return
+    setMobileSearchOpen(false)
+    router.push(`/search?q=${encodeURIComponent(q)}`)
+  }
 
   return (
     <>
-      <div className="md:hidden bg-navy flex items-center justify-between px-4 py-2">
-        <button onClick={() => setMenuOpen(true)} aria-label="Open menu">
-          <svg width="26" height="20" viewBox="0 0 26 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="26" height="3" fill="white" />
-            <rect y="8" width="26" height="3" fill="white" />
-            <rect y="16" width="26" height="3" fill="white" />
-          </svg>
-        </button>
-        <HeaderAuthIcons authUser={authUser} invert />
+      {/* Mobile: single white header row (below TopBanner) */}
+      <div className="md:hidden bg-white border-b border-navy/10">
+        <div className="flex items-center gap-2 px-3 py-2">
+          <button
+            type="button"
+            onClick={() => setMenuOpen(true)}
+            className="p-1 hover:opacity-80 transition-opacity shrink-0"
+            aria-label="Open menu"
+          >
+            <svg width="24" height="18" viewBox="0 0 26 20" fill="none" aria-hidden>
+              <rect width="26" height="3" className="fill-navy" />
+              <rect y="8" width="26" height="3" className="fill-navy" />
+              <rect y="16" width="26" height="3" className="fill-navy" />
+            </svg>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setMobileSearchOpen((open) => !open)}
+            className="p-1 hover:opacity-80 transition-opacity shrink-0 text-navy"
+            aria-label={mobileSearchOpen ? 'Close search' : 'Open search'}
+            aria-expanded={mobileSearchOpen}
+          >
+            <SearchIcon />
+          </button>
+
+          <Link href="/" className="flex-1 flex justify-center min-w-0">
+            <Image
+              src={logo}
+              alt="Sanji's Label"
+              width={120}
+              height={120}
+              className="object-contain w-12 h-12"
+              priority
+            />
+          </Link>
+
+          <div className="flex items-center gap-2 shrink-0">
+            <HeaderAuthIcons authUser={authUser} compact />
+          </div>
+        </div>
+
+        {mobileSearchOpen && (
+          <form
+            onSubmit={handleSearch}
+            className="flex items-center gap-2 px-3 pb-3 border-t border-navy/10 pt-2"
+            role="search"
+          >
+            <SearchIcon className="text-navy shrink-0" />
+            <input
+              type="search"
+              name="q"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search apparel & accessories"
+              autoFocus
+              className="font-cardo italic text-navy text-base bg-transparent border-0 border-b border-[#d1d5db] focus:border-navy/40 p-0 pb-1 focus:outline-none focus:ring-0 w-full placeholder:text-navy/60 placeholder:italic"
+              aria-label="Search products"
+            />
+          </form>
+        )}
       </div>
 
-      <div className="hidden md:block bg-navy py-1 px-4">
-        <Image
-          src="/images/brand-logo-small.png"
-          alt="Sangeeta's Boutique"
-          width={40}
-          height={28}
-          className="object-contain"
-        />
-      </div>
-
-      <div className="bg-white flex items-center justify-center relative px-4 md:px-10 py-4 md:py-6">
-        <p className="hidden md:block absolute top-8 left-10 font-cardo italic text-black text-lg">
-          {shipLine}
-        </p>
+      {/* Desktop: logo row + nav links */}
+      <div className="hidden md:flex bg-white items-center justify-center relative px-10 py-6">
+        <form
+          onSubmit={handleSearch}
+          className="flex absolute top-8 left-10 items-center gap-2.5 border-b border-[#d1d5db] focus-within:border-navy/40 pb-1 min-w-[160px] max-w-[240px] transition-colors"
+          role="search"
+        >
+          <SearchIcon />
+          <input
+            type="search"
+            name="q"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search"
+            className="font-cardo italic text-navy text-xl bg-transparent border-0 p-0 focus:outline-none focus:ring-0 w-full min-w-[100px] placeholder:text-navy placeholder:italic"
+            aria-label="Search products"
+          />
+        </form>
         <Link href="/">
           <Image
             src={logo}
             alt="Sangeeta's Boutique"
             width={250}
             height={250}
-            className="object-contain w-[80px] h-[80px] md:w-[200px] md:h-[200px]"
+            className="object-contain w-[200px] h-[200px]"
             priority
           />
         </Link>
-        <div className="hidden md:flex items-center gap-4 absolute top-8 right-10">
+        <div className="flex items-center gap-4 absolute top-8 right-10">
           <HeaderAuthIcons authUser={authUser} />
         </div>
       </div>
 
-      <nav className="hidden md:block bg-sanji-border/40">
+      <nav className="hidden md:block bg-cream">
         <ul className="flex items-center justify-center gap-12 py-3 font-cardo text-navy text-lg tracking-wide">
-          <li>
-            <Link href="/apparel" className="hover:underline underline-offset-4 transition-all">
-              APPAREL
-            </Link>
-          </li>
-          <li>
-            <Link href="/accessories" className="hover:underline underline-offset-4 transition-all">
-              ACCESSORIES
-            </Link>
-          </li>
+          <NavDropdown label="APPAREL" href="/apparel" items={NAV_APPAREL_LINKS} />
+          <NavDropdown label="ACCESSORIES" href="/accessories" items={NAV_ACCESSORIES_LINKS} />
           <li>
             <Link href="/booking" className="hover:underline underline-offset-4 transition-all">
               BOOKING
@@ -86,8 +182,6 @@ export default function Navbar({ shipToLine, authUser = null }) {
           </li>
         </ul>
       </nav>
-
-      <div className="md:hidden h-2 bg-sanji-border/40" />
 
       <MobileMenu
         isOpen={menuOpen}

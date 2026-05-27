@@ -5,9 +5,9 @@
   --foreground: #171717;
   --navy: #0b1551;
   --sanji-border: #d9e9ed;
-  --light-bg: #f5f7fa;
-  --cream: #f5efe1;
-  --cream-soft: #fbf6ec;
+  --light-bg: #f6f3ef;
+  --cream: #f6f3ef;
+  --cream-soft: #f6f3ef;
 }
 
 @theme inline {

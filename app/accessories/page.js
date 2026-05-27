@@ -12,7 +12,7 @@ export default function AccessoriesPage() {
   return (
     <Suspense fallback={<div className="min-h-[60vh]" />}>
       <CatalogView
-        title="All Accessories"
+        title="Shop All Accessories"
         description="Handcrafted jewelry and accessories designed to elevate any look."
         products={accessoryProducts}
         categories={accessoryCategories}

@@ -12,7 +12,7 @@ export default function ApparelPage() {
   return (
     <Suspense fallback={<div className="min-h-[60vh]" />}>
       <CatalogView
-        title="All Apparel"
+        title="Shop All Apparel"
         description="Discover Sanji's collection of traditional and contemporary Indian attire, designed for every occasion."
         products={apparelProducts}
         categories={apparelCategories}

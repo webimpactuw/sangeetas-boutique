@@ -25,10 +25,26 @@ export const DEFAULT_HERO_SLIDES = [
 ]
 
 export const DEFAULT_SHOP_CATEGORIES = [
+  { name: 'Sarees', image: '/images/product-sari.png', href: '/apparel?category=sarees' },
   { name: 'Lehengas', image: '/images/product-lehenga.png', href: '/apparel?category=lehengas' },
   { name: 'Dresses', image: '/images/product-dress.png', href: '/apparel?category=dresses' },
   { name: 'Jewelry', image: '/images/product-sari.png', href: '/accessories?category=jewelry' },
   { name: 'Kids Wear', image: '/images/product-kurta.png', href: '/apparel?category=kids' },
+]
+
+export const NAV_APPAREL_LINKS = [
+  { label: 'Sarees', href: '/apparel?category=sarees' },
+  { label: 'Lehengas', href: '/apparel?category=lehengas' },
+  { label: 'Dresses', href: '/apparel?category=dresses' },
+  { label: 'Ready-made Blouses', href: '/apparel?category=blouses' },
+  { label: 'Menswear', href: '/apparel?category=menswear' },
+  { label: 'Kidswear', href: '/apparel?category=kids' },
+]
+
+export const NAV_ACCESSORIES_LINKS = [
+  { label: 'Jewelry', href: '/accessories?category=jewelry' },
+  { label: 'Bags', href: '/accessories?category=bags' },
+  { label: 'Watches', href: '/accessories?category=watches' },
 ]
 
 export const DEFAULT_ELEGANCE = {
@@ -71,6 +87,31 @@ export const DEFAULT_REVIEWS = {
       quote:
         'Sangeeta has a very delightful and unique collection of Indian wear for all. She is also very diligent about helping you style your costumes with the right accessories and is your personal stylist!',
     },
+    {
+      name: 'Shilpa Puranik',
+      quote:
+        "Sanji's label carries a great selection of clothing. I always find something special for every occasion.",
+    },
+    {
+      name: 'Rinku Jain',
+      quote:
+        'Elegant collection at reasonable prices. Highly recommend for anyone looking for traditional wear.',
+    },
+    {
+      name: 'Priya Sharma',
+      quote:
+        'Beautiful sarees and impeccable tailoring. Sanji listened to what I wanted and the final outfit was perfect for my event.',
+    },
+    {
+      name: 'Anjali Mehta',
+      quote:
+        'From jewelry to lehengas, everything feels thoughtfully curated. Shopping here always feels personal and warm.',
+    },
+    {
+      name: 'Neha Kapoor',
+      quote:
+        'I booked a styling session and left with pieces I would never have picked on my own — all stunning. Will definitely be back.',
+    },
   ],
 }
 
@@ -87,7 +128,7 @@ export const DEFAULT_EXPLORE_JEWELRY = {
 
 export const DEFAULT_TOP_BANNER = {
   prefix: 'Get 25% off when you use code:',
-  promoCode: 'SANJI30',
+  promoCode: 'SANJI20',
 }
 
 export const DEFAULT_SITE_META = {
@@ -97,18 +138,27 @@ export const DEFAULT_SITE_META = {
 
 export const DEFAULT_FOOTER_CONTACT = {
   phone: '425-862-8572',
-  email: 'Sanji@gmail.com',
+  email: 'sanjimunoth@gmail.com',
   hours: [
-    { label: 'Mon – Fri', time: '9AM – 8PM' },
-    { label: 'Sat, Sun', time: '10AM – 9PM' },
+    { label: 'Mon – Fri', time: '10AM – 5PM' },
+    { label: 'Sat – Sun', time: '10AM – 3PM' },
   ],
+  hoursNote: 'Hours are subject to change, please contact to confirm.',
   copyright: "© 2026 Sanji's Label",
+  shopAddressLabel: 'Request Shop Address',
 }
 
 export const DEFAULT_HELP = {
   title: 'Need Help?',
   ctaLabel: 'Contact Sanji',
-  email: 'Sanji@gmail.com',
+  phone: '425-862-8572',
+  email: 'sanjimunoth@gmail.com',
+}
+
+/** PayPal / Venmo QR on cart — Sanji's handle */
+export const DEFAULT_PAYMENT_QR = {
+  handle: '@sanji_1007',
+  imageUrl: null,
 }
 
 /** Footer column — edit in Site settings in Sanity. */
@@ -121,13 +171,47 @@ export const DEFAULT_FOOTER_QUICK_LINKS = [
 ]
 
 export const DEFAULT_FOOTER_POLICIES = [
-  { label: 'Return Policy', href: '/policies/returns' },
-  { label: 'Shipping Policy', href: '/policies/shipping' },
-  { label: 'Tailoring Policy', href: '/policies/tailoring' },
+  { label: 'Return Policy', href: '/about#faq-returns' },
+  { label: 'Shipping Policy', href: '/about#faq-shipping' },
+  { label: 'Tracking Policy', href: '/about#faq-tracking' },
+  { label: 'Tailoring Policy', href: '/about#faq-tailoring' },
 ]
 
-/** Desktop nav line under the top bar. */
-export const DEFAULT_NAVBAR_SHIP_TO = 'Ship To: Issaquah, WA'
+/** Legacy Sanity field — search replaced ship-to in the navbar. */
+export const DEFAULT_NAVBAR_SHIP_TO = ''
+
+export const DEFAULT_FAQ_ITEMS = [
+  {
+    id: 'buy',
+    question: 'How do you buy items?',
+    answer:
+      'Browse apparel and accessories, add items to your bag, then submit an order inquiry at checkout. Sanji will confirm your order and send payment instructions. You can also book an appointment for in-person styling.',
+  },
+  {
+    id: 'shipping',
+    question: 'What is your Shipping Policy?',
+    answer:
+      'We ship within the United States. Shipping cost and timing depend on your location and selections at checkout. Sanji will confirm details when she approves your order.',
+  },
+  {
+    id: 'returns',
+    question: 'What is your Return Policy?',
+    answer:
+      'Because many pieces are made-to-order or tailored, returns are handled case by case. Contact Sanji as soon as possible if something is not right.',
+  },
+  {
+    id: 'tailoring',
+    question: 'What is your Tailoring Policy?',
+    answer:
+      'Alterations and custom tailoring may be available depending on the garment. Mention your needs when booking or in your order notes.',
+  },
+  {
+    id: 'tracking',
+    question: 'What is your Tracking Policy?',
+    answer:
+      'After your order ships, Sanji will share tracking information by email or phone. Reach out if you have questions about delivery status.',
+  },
+]
 
 /**
  * Plain defaults for Sanity Studio initial values & seed (same copy as the live site).

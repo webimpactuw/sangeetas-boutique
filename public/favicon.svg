@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Sanji's Label">
+  <rect width="32" height="32" rx="6" fill="#0b1551"/>
+  <g fill="none" stroke="#ffffff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M16 6.5c-2.2 0-4 1.6-4 3.6V12"/>
+    <path d="M9.5 12h13l-1.1 11.5H10.6L9.5 12z"/>
+    <path d="M12 12c0-2.2 1.8-4 4-4s4 1.8 4 4"/>
+  </g>
+</svg>

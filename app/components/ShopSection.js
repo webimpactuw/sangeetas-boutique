@@ -16,9 +16,9 @@ function CategoryCard({ cat }) {
         className="object-cover group-hover:scale-105 transition-transform duration-500"
         sizes="(max-width: 768px) 50vw, 25vw"
       />
-      <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/55 via-black/15 to-transparent" />
-      <div className="absolute inset-x-0 bottom-3 md:bottom-5 flex flex-col items-center gap-1.5 md:gap-2.5 px-3">
-        <span className="font-cardo italic text-white text-base md:text-2xl drop-shadow">
+      <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-navy/70 via-navy/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      <div className="absolute inset-x-0 bottom-3 md:bottom-5 flex flex-col items-center gap-1.5 md:gap-2.5 px-3 z-10">
+        <span className="font-cardo italic text-white text-base md:text-2xl drop-shadow-[0_2px_8px_rgba(0,0,0,0.65)]">
           {cat.name}
         </span>
         <span className="font-cardo text-white text-xs md:text-sm bg-navy/40 backdrop-blur-sm border border-white/70 rounded-sm px-5 md:px-8 py-1 md:py-1.5 group-hover:bg-navy group-hover:border-white transition-colors">

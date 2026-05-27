@@ -1,20 +1,11 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import AuthDrawer from './AuthDrawer'
 import AuthPanelContent from './AuthPanelContent'
 
-/**
- * Auth drawer overlay on the current page — switches sign-in / sign-up / forgot in place.
- */
-export default function SignInDrawer({ open, onClose }) {
+function SignInDrawerPanel({ onClose }) {
   const [view, setView] = useState('signin')
-
-  useEffect(() => {
-    if (open) setView('signin')
-  }, [open])
-
-  if (!open) return null
 
   return (
     <AuthDrawer onClose={onClose}>
@@ -23,4 +14,12 @@ export default function SignInDrawer({ open, onClose }) {
       </div>
     </AuthDrawer>
   )
+}
+
+/**
+ * Auth drawer overlay on the current page — switches sign-in / sign-up / forgot in place.
+ */
+export default function SignInDrawer({ open, onClose }) {
+  if (!open) return null
+  return <SignInDrawerPanel onClose={onClose} />
 }
