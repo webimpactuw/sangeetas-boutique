@@ -28,9 +28,6 @@ export function getResendConfig() {
 export const RESEND_NOT_CONFIGURED_ERROR =
   'Email is not configured. Please contact the boutique directly.'
 
-export const BOOKING_NOT_CONFIGURED_ERROR =
-  'Booking email is not configured yet. Please call or email the boutique directly.'
-
 /**
  * Order inquiry + approve-link readiness (for ops / handoff checks).
  */

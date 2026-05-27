@@ -8,7 +8,6 @@ Use this checklist when handing the site to Sanji or deploying to production.
 |------|---------|-------------|
 | **Order inquiry** | Customer submits checkout (no payment on site) | 1) Sanji — order details + **Approve & send payment** link · 2) Customer — inquiry confirmation |
 | **Order approval** | Sanji clicks approve link in her email | Customer — PayPal link + QR (via Resend) |
-| **Booking** | Customer submits `/booking` | 1) Sanji — appointment request · 2) Customer — request received |
 
 Payment is **never** processed on the website. PayPal happens offline after approval.
 
@@ -19,7 +18,7 @@ Copy `.env.example` → `.env.local` (local) and set the same keys in **Vercel �
 | Variable | Purpose |
 |----------|---------|
 | `RESEND_API_KEY` | API key from [resend.com/api-keys](https://resend.com/api-keys) (`re_…`) |
-| `SANJI_ORDER_EMAIL` | Inbox for orders & bookings (`sanjimunoth@gmail.com`) |
+| `SANJI_ORDER_EMAIL` | Inbox for order inquiries (`sanjimunoth@gmail.com`) |
 | `RESEND_FROM_EMAIL` | Verified sender (e.g. `orders@sanjislabel.com`) |
 | `ORDER_APPROVAL_SECRET` | Long random string (32+ chars) — signs approve links |
 | `NEXT_PUBLIC_SITE_URL` | Production URL, no trailing slash (e.g. `https://sanjislabel.com`) |
@@ -42,16 +41,14 @@ Fix any ✗ lines in `.env.local` or Vercel, then re-run.
 
 ## Manual smoke test
 
-1. **Booking** — Submit `/booking` with your email → Sanji inbox + your confirmation.
-2. **Order** — Add item to bag → checkout → submit inquiry → Sanji email with approve button + customer confirmation.
-3. **Approve** — Click approve in Sanji's email → customer receives PayPal instructions; `/order-approved?sent=1` loads.
+1. **Order** — Add item to bag → checkout → submit inquiry → Sanji email with approve button + customer confirmation.
+2. **Approve** — Click approve in Sanji's email → customer receives PayPal instructions; `/order-approved?sent=1` loads.
 
 ## Sanji's daily workflow
 
 1. Customer places **order inquiry** on the site.
 2. Sanji receives email → reviews items → clicks **Approve & send payment link**.
 3. Customer gets PayPal email → pays outside the site.
-4. **Bookings**: Sanji replies by email/phone to confirm time (site does not auto-schedule).
 
 ## Troubleshooting
 

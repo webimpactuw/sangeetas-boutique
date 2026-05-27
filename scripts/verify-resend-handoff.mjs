@@ -83,7 +83,6 @@ if (from?.includes('@resend.dev')) {
 console.log('\nEmail flows covered by these vars:')
 console.log('  • Checkout order inquiry → Sanji + customer confirmation')
 console.log('  • Approve link in Sanji email → customer PayPal instructions')
-console.log('  • /booking appointment request → Sanji + customer confirmation')
 console.log('')
 
 if (allOk) {

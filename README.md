@@ -59,10 +59,6 @@ Copy `.env.example` to `.env.local` and set:
 
 Run **`npm run verify:resend`** before deploy. Full checklist: [`docs/RESEND-HANDOFF.md`](docs/RESEND-HANDOFF.md).
 
-## Booking appointments
-
-The `/booking` form emails Sanji and the customer via **the same Resend env vars** as order inquiries (`RESEND_API_KEY`, `SANJI_ORDER_EMAIL`, `RESEND_FROM_EMAIL`). Sanji confirms timing manually by reply — the site does not auto-schedule.
-
 ## Account favorites (wishlist)
 
 Signed-in customers can heart products; rows are stored in Supabase per user.
