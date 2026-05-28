@@ -4,7 +4,7 @@ import "./globals.css";
 import TopBanner from "./components/TopBanner";
 import Navbar from "./components/navbar";
 import Footer from "./components/Footer";
-import HelpButton from "./components/HelpButton";
+import HelpButtonwrapper from './components/HelpButtonwrapper'
 import CartProvider from "./components/CartProvider";
 import FavoritesProvider from "./components/FavoritesProvider";
 import { serializeAuthUser } from "./lib/auth/user";
@@ -82,10 +82,10 @@ export default async function RootLayout({ children }) {
               quickLinks={s.footerQuickLinks}
               policies={s.footerPolicies}
             />
-            <HelpButton
+            <HelpButtonwrapper
               title={s.helpTitle}
               ctaLabel={s.helpCtaLabel}
-              phone={s.footerPhone}
+              email={s.helpEmail}
             />
           </CartProvider>
         </FavoritesProvider>
