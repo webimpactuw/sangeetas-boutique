@@ -1,4 +1,4 @@
-import BookingForm from './BookingForm'
+import CalendlyEmbed from '../components/CalendlyEmbed'; 
 
 export const metadata = {
   title: "Book an Appointment | Sangeeta's Boutique",
@@ -20,7 +20,7 @@ export default function BookingPage() {
           </p>
         </header>
 
-        <BookingForm />
+        <CalendlyEmbed />
       </div>
     </main>
   )
