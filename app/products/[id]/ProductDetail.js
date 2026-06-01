@@ -29,7 +29,7 @@ export default function ProductDetail({ product, related = [] }) {
   const [quantity, setQuantity] = useState(1)
   const [added, setAdded] = useState(false)
 
-  const gallery = [product.image, product.image, product.image, product.image]
+  const gallery = product.images?.length ? product.images : [product.image]
   const mainSrc = gallery[activeImage] ?? product.image
 
   const dec = () => setQuantity((q) => Math.max(1, q - 1))
@@ -63,8 +63,9 @@ export default function ProductDetail({ product, related = [] }) {
               priority
             />
           </div>
+          {gallery.length > 1 ? (
           <div className="grid grid-cols-4 gap-3">
-            {gallery.map((src, i) => (
+            {gallery.slice(0, 4).map((src, i) => (
               <button
                 key={i}
                 type="button"
@@ -86,6 +87,7 @@ export default function ProductDetail({ product, related = [] }) {
               </button>
             ))}
           </div>
+          ) : null}
         </div>
 
         <div className="flex flex-col">

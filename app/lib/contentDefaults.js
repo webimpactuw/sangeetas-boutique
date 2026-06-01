@@ -5,40 +5,46 @@ export const DEFAULT_HERO_SLIDES = [
     title: 'Spring Saris',
     cta: 'SHOP NOW',
     href: '#saris',
-    image: '/images/hero-main.png',
+    image: '/images/gallery/photo-01.jpg',
     alt: 'Spring Saris collection',
   },
   {
     title: 'New Lehengas',
     cta: 'SHOP NOW',
     href: '#lehengas',
-    image: '/images/product-lehenga.png',
+    image: '/images/gallery/photo-02.jpg',
     alt: 'Lehenga collection',
   },
   {
-    title: 'Dresses for Every Occasion',
+    title: 'Indo-Western Wear',
     cta: 'SHOP NOW',
-    href: '#dresses',
-    image: '/images/product-dress.png',
-    alt: 'Dresses collection',
+    href: '/apparel?category=indo-western',
+    image: '/images/gallery/photo-03.jpg',
+    alt: 'Indo-Western fusion wear',
   },
 ]
 
 export const DEFAULT_SHOP_CATEGORIES = [
-  { name: 'Sarees', image: '/images/product-sari.png', href: '/apparel?category=sarees' },
-  { name: 'Lehengas', image: '/images/product-lehenga.png', href: '/apparel?category=lehengas' },
-  { name: 'Dresses', image: '/images/product-dress.png', href: '/apparel?category=dresses' },
-  { name: 'Jewelry', image: '/images/product-sari.png', href: '/accessories?category=jewelry' },
-  { name: 'Kids Wear', image: '/images/product-kurta.png', href: '/apparel?category=kids' },
+  { name: 'Lehengas', image: '/images/gallery/photo-05.jpg', href: '/apparel?category=lehengas' },
+  { name: 'Sarees', image: '/images/gallery/photo-04.jpg', href: '/apparel?category=sarees' },
+  {
+    name: 'Indo-Western Wear',
+    image: '/images/gallery/photo-06.jpg',
+    href: '/apparel?category=indo-western',
+  },
+  {
+    name: 'Readymade Sarees',
+    image: '/images/gallery/photo-20.jpg',
+    href: '/apparel?category=readymade-sarees',
+  },
+  { name: 'Jewelry', image: '/images/gallery/photo-07.jpg', href: '/accessories?category=jewelry' },
 ]
 
 export const NAV_APPAREL_LINKS = [
-  { label: 'Sarees', href: '/apparel?category=sarees' },
   { label: 'Lehengas', href: '/apparel?category=lehengas' },
-  { label: 'Dresses', href: '/apparel?category=dresses' },
-  { label: 'Ready-made Blouses', href: '/apparel?category=blouses' },
-  { label: 'Menswear', href: '/apparel?category=menswear' },
-  { label: 'Kidswear', href: '/apparel?category=kids' },
+  { label: 'Sarees', href: '/apparel?category=sarees' },
+  { label: 'Indo-Western Wear', href: '/apparel?category=indo-western' },
+  { label: 'Readymade Sarees', href: '/apparel?category=readymade-sarees' },
 ]
 
 export const NAV_ACCESSORIES_LINKS = [
@@ -62,7 +68,7 @@ export const DEFAULT_CRAFTSMANSHIP = {
     'thoughtfully designed to reflect true craftsmanship and quality.',
   ctaLabel: 'Explore Gallery',
   ctaHref: '/gallery',
-  image: '/images/product-sari.png',
+  image: '/images/gallery/photo-09.jpg',
   imageAlt: 'Handcrafted sari embroidery work',
 }
 
@@ -123,7 +129,11 @@ export const DEFAULT_EXPLORE_JEWELRY = {
     'creating pieces that are sure to be the talk of any event.',
   ctaLabel: 'Shop Now',
   ctaHref: '/accessories?category=jewelry',
-  images: ['/images/product-sari.png', '/images/product-lehenga.png', '/images/product-dress.png'],
+  images: [
+    '/images/gallery/photo-10.jpg',
+    '/images/gallery/photo-11.jpg',
+    '/images/gallery/photo-12.jpg',
+  ],
 }
 
 export const DEFAULT_TOP_BANNER = {

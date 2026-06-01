@@ -4,11 +4,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useCart } from '../context/CartContext'
 import { calculateTotals, DEFAULT_TAX_RATE } from '../lib/cart'
-import { DEFAULT_PAYMENT_QR } from '../lib/contentDefaults'
-import { buildPayPalMeUrl, buildPayPalQrImageUrl } from '../lib/paypal'
-
-const venmoPath = DEFAULT_PAYMENT_QR.handle.replace('@', '')
-const venmoQrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(`https://venmo.com/${venmoPath}`)}`
 
 export default function CartView() {
   const { items, changeQuantity, removeItem, hydrated } = useCart()
@@ -25,9 +20,6 @@ export default function CartView() {
     shippingCost: 0,
     taxRate: DEFAULT_TAX_RATE,
   })
-
-  const paypalUrl = buildPayPalMeUrl(total)
-  const paypalQrUrl = paypalUrl ? buildPayPalQrImageUrl(paypalUrl) : venmoQrUrl
 
   const itemCount = items.reduce((n, it) => n + it.quantity, 0)
 
@@ -153,10 +145,8 @@ export default function CartView() {
           </dl>
           <p className="text-navy/65 text-xs md:text-sm italic mb-6 leading-relaxed">
             Total includes estimated tax. Shipping is confirmed when Sanji approves your
-            request.
+            request. Payment instructions are sent only after she confirms your order.
           </p>
-
-          <p className="text-sm md:text-base mb-3 font-bold">Choose how to continue</p>
 
           <Link
             href="/checkout"
@@ -164,41 +154,10 @@ export default function CartView() {
           >
             Confirm your request
           </Link>
-          <p className="text-xs md:text-sm text-navy/70 text-center mt-2 mb-1 leading-relaxed">
-            Sanji will review your bag and follow up by email — no payment on this step.
+          <p className="text-xs md:text-sm text-navy/70 text-center mt-3 leading-relaxed">
+            Sanji will review your bag and follow up by email with next steps. No payment
+            is collected on this website.
           </p>
-
-          <p className="font-cardo italic text-navy/60 text-center text-sm my-5">OR</p>
-
-          <p className="text-center text-sm md:text-base mb-4">
-            {paypalUrl
-              ? 'Scan the QR or pay with PayPal'
-              : 'Scan the QR to purchase your items'}
-          </p>
-
-          <div className="flex flex-col items-center">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={paypalQrUrl}
-              alt={paypalUrl ? 'PayPal payment QR code' : `Venmo ${DEFAULT_PAYMENT_QR.handle}`}
-              width={200}
-              height={200}
-              className="border border-sanji-border bg-white p-2 mb-3"
-            />
-            {paypalUrl ? (
-              <a
-                href={paypalUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-bold text-sm md:text-base underline underline-offset-2 hover:text-navy/70 mb-2"
-              >
-                Pay with PayPal
-              </a>
-            ) : null}
-            <p className="font-bold text-sm md:text-base text-navy/80">
-              {DEFAULT_PAYMENT_QR.handle}
-            </p>
-          </div>
         </aside>
       </div>
     </div>

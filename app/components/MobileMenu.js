@@ -11,9 +11,10 @@ const menuItems = [
     href: '/apparel',
     submenu: [
       { label: 'All Apparel', href: '/apparel' },
-      { label: 'Women', href: '/apparel?category=women' },
-      { label: 'Mens', href: '/apparel?category=mens' },
-      { label: 'Kids', href: '/apparel?category=kids' },
+      { label: 'Lehengas', href: '/apparel?category=lehengas' },
+      { label: 'Sarees', href: '/apparel?category=sarees' },
+      { label: 'Indo-Western Wear', href: '/apparel?category=indo-western' },
+      { label: 'Readymade Sarees', href: '/apparel?category=readymade-sarees' },
     ],
   },
   {
@@ -21,10 +22,10 @@ const menuItems = [
     href: '/accessories',
     submenu: [
       { label: 'All Accessories', href: '/accessories' },
+      { label: 'Jewelry', href: '/accessories?category=jewelry' },
       { label: 'Necklaces', href: '/accessories?category=necklaces' },
       { label: 'Earrings', href: '/accessories?category=earrings' },
-      { label: 'Bracelets', href: '/accessories?category=bracelets' },
-      { label: 'Purses', href: '/accessories?category=purses' },
+      { label: 'Bags', href: '/accessories?category=bags' },
     ],
   },
   {

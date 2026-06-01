@@ -77,7 +77,7 @@ export default defineType({
       title: 'Section heading',
       type: 'string',
       group: 'shop',
-      description: 'Large heading above the four category tiles.',
+      description: 'Large heading above the category tiles on the home page.',
     }),
     defineField({
       name: 'shopCategories',
@@ -85,7 +85,7 @@ export default defineType({
       type: 'array',
       group: 'shop',
       description:
-        'Four tiles on desktop — upload a photo per category (names and links are pre-filled).',
+        'Category tiles on the home page — upload a photo per tile (names and links are pre-filled).',
       of: [
         defineArrayMember({
           type: 'object',

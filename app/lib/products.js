@@ -1,43 +1,29 @@
-export const apparelCategories = [
-  { id: 'sarees', label: 'Sarees' },
-  { id: 'lehengas', label: 'Lehengas' },
-  { id: 'dresses', label: 'Dresses' },
-  { id: 'blouses', label: 'Ready-made Blouses' },
-  { id: 'menswear', label: 'Menswear' },
-  { id: 'kids', label: 'Kidswear' },
-]
+import { ACCESSORY_CATEGORIES, APPAREL_CATEGORIES } from './categories'
 
-export const accessoryCategories = [
-  { id: 'jewelry', label: 'Jewelry' },
-  { id: 'bags', label: 'Bags' },
-  { id: 'watches', label: 'Watches' },
-  { id: 'necklaces', label: 'Necklaces' },
-  { id: 'earrings', label: 'Earrings' },
-]
+export const apparelCategories = APPAREL_CATEGORIES.map(({ id, label }) => ({ id, label }))
+export const accessoryCategories = ACCESSORY_CATEGORIES.map(({ id, label }) => ({ id, label }))
 
 const baseImages = [
-  '/images/product-lehenga.png',
-  '/images/product-dress.png',
-  '/images/product-sari.png',
-  '/images/product-kurta.png',
-  '/images/product-churidar.png',
+  '/images/gallery/photo-13.jpg',
+  '/images/gallery/photo-14.jpg',
+  '/images/gallery/photo-15.jpg',
+  '/images/gallery/photo-16.jpg',
+  '/images/gallery/photo-17.jpg',
 ]
 
 const FABRICS = ['Silk', 'Cotton', 'Georgette', 'Chiffon', 'Linen']
 
 /** Category id → carousel image */
 export const CATEGORY_IMAGES = {
-  sarees: '/images/product-sari.png',
-  lehengas: '/images/product-lehenga.png',
-  dresses: '/images/product-dress.png',
-  blouses: '/images/product-kurta.png',
-  menswear: '/images/product-churidar.png',
-  kids: '/images/product-kurta.png',
-  jewelry: '/images/product-sari.png',
-  bags: '/images/product-dress.png',
-  watches: '/images/product-lehenga.png',
-  necklaces: '/images/product-sari.png',
-  earrings: '/images/product-dress.png',
+  lehengas: '/images/gallery/photo-05.jpg',
+  sarees: '/images/gallery/photo-04.jpg',
+  'indo-western': '/images/gallery/photo-06.jpg',
+  'readymade-sarees': '/images/gallery/photo-20.jpg',
+  jewelry: '/images/gallery/photo-07.jpg',
+  bags: '/images/gallery/photo-10.jpg',
+  watches: '/images/gallery/photo-11.jpg',
+  necklaces: '/images/gallery/photo-12.jpg',
+  earrings: '/images/gallery/photo-15.jpg',
 }
 
 function makeProducts(prefix, count, categories, basePrice = 150) {
@@ -50,24 +36,26 @@ function makeProducts(prefix, count, categories, basePrice = 150) {
       price: basePrice + (i % 6) * 25,
       image: baseImages[(i - 1) % baseImages.length],
       category: cat.id,
+      department: prefix === 'accessory' ? 'accessories' : 'apparel',
       fabric: FABRICS[(i - 1) % FABRICS.length],
       colors: ['Blue', 'Red', 'Green', 'Cream'],
       sizes: ['XS', 'S', 'M', 'L', 'XL'],
       description:
-        'Sed ut perspiciatis unde omnis iste natus error sit voluptatem ' +
-        'accusantium doloremque laudantium, totam rem aperiam, eaque ipsa ' +
-        'quae ab illo inventore veritatis et quasi architecto beatae vitae ' +
-        'dicta sunt explicabo.',
+        'Handcrafted piece from Sanji\'s Label. Contact us for sizing, tailoring, and availability.',
     })
   }
   return products
 }
 
-export const apparelProducts = makeProducts('apparel', 18, apparelCategories, 150)
-export const accessoryProducts = makeProducts('accessory', 18, accessoryCategories, 80)
+export const apparelProducts = makeProducts('apparel', 16, apparelCategories, 150)
+export const accessoryProducts = makeProducts('accessory', 12, accessoryCategories, 80)
 
 export const allProducts = [...apparelProducts, ...accessoryProducts]
 
 export function getProduct(id) {
   return allProducts.find((p) => p.id === id) ?? null
+}
+
+export function filterByDepartment(products, department) {
+  return products.filter((p) => p.department === department)
 }

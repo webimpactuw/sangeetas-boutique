@@ -38,3 +38,24 @@ export const HOME_PAGE_QUERY = defineQuery(`*[_id == "homePage"][0]{
   heroSlides[]{ title, cta, href, photo },
   shopCategories[]{ name, href, photo }
 }`)
+
+export const PRODUCTS_QUERY = defineQuery(`*[_type == "product" && published != false] | order(name asc) {
+  name,
+  "slug": slug.current,
+  department,
+  category,
+  price,
+  published,
+  description,
+  fabric,
+  colors,
+  sizes,
+  mainImage,
+  gallery
+}`)
+
+export const GALLERY_PAGE_QUERY = defineQuery(`*[_id == "galleryPage"][0]{
+  title,
+  intro,
+  photos
+}`)

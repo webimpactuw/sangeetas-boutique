@@ -2,7 +2,7 @@ import FavoritesView from './FavoritesView'
 import DashboardShell from '@/app/components/dashboard/DashboardShell'
 import { resolveFavoriteProducts } from '@/app/lib/favorites'
 import { getFavoriteProductIds } from '@/app/lib/favoritesDb'
-import { allProducts } from '@/app/lib/products'
+import { getCatalogProducts } from '@/app/lib/catalog'
 import { serializeAuthUser } from '@/app/lib/auth/user'
 import { createClient } from '@/app/lib/supabase/server'
 
@@ -18,7 +18,8 @@ export default async function FavoritesPage() {
   const authUser = serializeAuthUser(user)
 
   const productIds = user ? await getFavoriteProductIds(user.id) : []
-  const products = resolveFavoriteProducts(productIds, allProducts)
+  const catalog = await getCatalogProducts()
+  const products = resolveFavoriteProducts(productIds, catalog)
 
   return (
     <DashboardShell title="Favorites" authUser={authUser}>
