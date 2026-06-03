@@ -1,40 +1,26 @@
 import { ACCESSORY_CATEGORIES, APPAREL_CATEGORIES } from './categories'
+import { categoryImagePath, productImagesForCategory } from './galleryPhotoMap'
 
 export const apparelCategories = APPAREL_CATEGORIES.map(({ id, label }) => ({ id, label }))
 export const accessoryCategories = ACCESSORY_CATEGORIES.map(({ id, label }) => ({ id, label }))
 
-const baseImages = [
-  '/images/gallery/photo-13.jpg',
-  '/images/gallery/photo-14.jpg',
-  '/images/gallery/photo-15.jpg',
-  '/images/gallery/photo-16.jpg',
-  '/images/gallery/photo-17.jpg',
-]
-
 const FABRICS = ['Silk', 'Cotton', 'Georgette', 'Chiffon', 'Linen']
 
 /** Category id → carousel image */
-export const CATEGORY_IMAGES = {
-  lehengas: '/images/gallery/photo-05.jpg',
-  sarees: '/images/gallery/photo-04.jpg',
-  'indo-western': '/images/gallery/photo-06.jpg',
-  'readymade-sarees': '/images/gallery/photo-20.jpg',
-  jewelry: '/images/gallery/photo-07.jpg',
-  bags: '/images/gallery/photo-10.jpg',
-  watches: '/images/gallery/photo-11.jpg',
-  necklaces: '/images/gallery/photo-12.jpg',
-  earrings: '/images/gallery/photo-15.jpg',
-}
+export const CATEGORY_IMAGES = Object.fromEntries(
+  [...apparelCategories, ...accessoryCategories].map((cat) => [cat.id, categoryImagePath(cat.id)]),
+)
 
 function makeProducts(prefix, count, categories, basePrice = 150) {
   const products = []
   for (let i = 1; i <= count; i++) {
     const cat = categories[(i - 1) % categories.length]
+    const pool = productImagesForCategory(cat.id)
     products.push({
       id: `${prefix}-${i}`,
       name: `${cat.label} ${String(i).padStart(2, '0')}`,
       price: basePrice + (i % 6) * 25,
-      image: baseImages[(i - 1) % baseImages.length],
+      image: pool[(i - 1) % pool.length],
       category: cat.id,
       department: prefix === 'accessory' ? 'accessories' : 'apparel',
       fabric: FABRICS[(i - 1) % FABRICS.length],

@@ -1,43 +1,46 @@
 /** Defaults when Sanity has no document or empty fields. */
 
+import { categoryImagePath } from './galleryPhotoMap.js'
+import { galleryImagePath } from './galleryImages.js'
+
 export const DEFAULT_HERO_SLIDES = [
   {
     title: 'Spring Saris',
     cta: 'SHOP NOW',
-    href: '#saris',
-    image: '/images/gallery/photo-01.jpg',
+    href: '/apparel?category=sarees',
+    image: galleryImagePath(22),
     alt: 'Spring Saris collection',
   },
   {
     title: 'New Lehengas',
     cta: 'SHOP NOW',
-    href: '#lehengas',
-    image: '/images/gallery/photo-02.jpg',
+    href: '/apparel?category=lehengas',
+    image: galleryImagePath(10),
     alt: 'Lehenga collection',
   },
   {
     title: 'Indo-Western Wear',
     cta: 'SHOP NOW',
     href: '/apparel?category=indo-western',
-    image: '/images/gallery/photo-03.jpg',
+    image: galleryImagePath(21),
     alt: 'Indo-Western fusion wear',
   },
 ]
 
 export const DEFAULT_SHOP_CATEGORIES = [
-  { name: 'Lehengas', image: '/images/gallery/photo-05.jpg', href: '/apparel?category=lehengas' },
-  { name: 'Sarees', image: '/images/gallery/photo-04.jpg', href: '/apparel?category=sarees' },
+  { name: 'Lehengas', image: categoryImagePath('lehengas'), href: '/apparel?category=lehengas' },
+  { name: 'Sarees', image: categoryImagePath('sarees'), href: '/apparel?category=sarees' },
   {
     name: 'Indo-Western Wear',
-    image: '/images/gallery/photo-06.jpg',
+    image: categoryImagePath('indo-western'),
     href: '/apparel?category=indo-western',
   },
   {
     name: 'Readymade Sarees',
-    image: '/images/gallery/photo-20.jpg',
+    image: categoryImagePath('readymade-sarees'),
     href: '/apparel?category=readymade-sarees',
   },
-  { name: 'Jewelry', image: '/images/gallery/photo-07.jpg', href: '/accessories?category=jewelry' },
+  { name: 'Jewelry', image: categoryImagePath('jewelry'), href: '/accessories?category=jewelry' },
 ]
 
 export const NAV_APPAREL_LINKS = [
@@ -68,8 +71,8 @@ export const DEFAULT_CRAFTSMANSHIP = {
     'thoughtfully designed to reflect true craftsmanship and quality.',
   ctaLabel: 'Explore Gallery',
   ctaHref: '/gallery',
-  image: '/images/gallery/photo-09.jpg',
-  imageAlt: 'Handcrafted sari embroidery work',
+  image: galleryImagePath(11),
+  imageAlt: 'Handcrafted embroidery and boutique collection',
 }
 
 export const DEFAULT_REVIEWS = {
@@ -130,9 +133,9 @@ export const DEFAULT_EXPLORE_JEWELRY = {
   ctaLabel: 'Shop Now',
   ctaHref: '/accessories?category=jewelry',
   images: [
-    '/images/gallery/photo-10.jpg',
-    '/images/gallery/photo-11.jpg',
-    '/images/gallery/photo-12.jpg',
+    galleryImagePath(34),
+    galleryImagePath(36),
+    galleryImagePath(38),
   ],
 }
 

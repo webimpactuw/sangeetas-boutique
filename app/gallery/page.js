@@ -1,11 +1,7 @@
 import Image from 'next/image'
+import { getLocalGalleryImages } from '../lib/galleryImages'
 import { mapGalleryPage } from '../lib/mapSanityProducts'
 import { getGalleryPage } from '../../sanity/lib/fetchPublicContent'
-
-const FALLBACK_GALLERY = Array.from({ length: 22 }, (_, i) => ({
-  src: `/images/gallery/photo-${String(i + 1).padStart(2, '0')}.jpg`,
-  alt: `Gallery photo ${i + 1}`,
-}))
 
 export const metadata = {
   title: "Gallery | Sangeeta's Boutique",
@@ -14,16 +10,17 @@ export const metadata = {
 }
 
 export default async function GalleryPage() {
-  let gallery = { title: 'Gallery', intro: '', images: FALLBACK_GALLERY }
+  const fallback = getLocalGalleryImages()
+  let gallery = { title: 'Gallery', intro: '', images: fallback }
 
   try {
     const doc = await getGalleryPage()
     gallery = mapGalleryPage(
       doc,
-      FALLBACK_GALLERY.map((p) => p.src),
+      fallback.map((p) => p.src),
     )
   } catch (err) {
-    console.error('Gallery fetch failed, using fallback images:', err)
+    console.error('Gallery fetch failed, using local gallery images:', err)
   }
 
   return (
