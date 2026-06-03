@@ -17,7 +17,8 @@ Set in **Vercel → Project → Settings → Environment Variables** (Production
 | `NEXT_PUBLIC_SANITY_PROJECT_ID` | Yes |
 | `NEXT_PUBLIC_SANITY_DATASET` | Yes (`production`) |
 
-See also [`RESEND-HANDOFF.md`](./RESEND-HANDOFF.md).
+See also [`RESEND-HANDOFF.md`](./RESEND-HANDOFF.md).  
+**Club officers:** step-by-step Vercel + Resend setup → [`FOR-CLUB-OFFICERS.md`](./FOR-CLUB-OFFICERS.md).
 
 ## 2. Sanity Studio (content for Sanji)
 

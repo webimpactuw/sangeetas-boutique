@@ -58,7 +58,8 @@ Copy `.env.example` to `.env.local` and set:
 **Flow:** Customer submits inquiry → Sanji gets an email with **Approve & send payment link** → one tap emails the customer PayPal instructions (link + QR). The site never processes payments.
 
 Run **`npm run verify:resend`** before deploy. Full checklist: [`docs/RESEND-HANDOFF.md`](docs/RESEND-HANDOFF.md).  
-Deployment + Sanity guide for Sanji: [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md), [`docs/SANITY-FOR-SANJI.md`](docs/SANITY-FOR-SANJI.md).
+Deployment + Sanity guide for Sanji: [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md), [`docs/SANITY-FOR-SANJI.md`](docs/SANITY-FOR-SANJI.md).  
+**Club officers (Vercel / Resend / Supabase):** [`docs/FOR-CLUB-OFFICERS.md`](docs/FOR-CLUB-OFFICERS.md).
 
 ## Account favorites (wishlist)
 
