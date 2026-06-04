@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import CarouselArrow from './CarouselArrow'
 import { DEFAULT_HERO_SLIDES } from '../lib/contentDefaults'
 
 const AUTOPLAY_MS = 6000
@@ -70,17 +71,17 @@ export default function HeroBanner({ slides }) {
         type="button"
         onClick={prev}
         aria-label="Previous slide"
-        className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 w-9 h-9 md:w-12 md:h-12 rounded-full bg-white/70 hover:bg-white text-navy font-cardo text-xl md:text-2xl flex items-center justify-center transition-colors"
+        className="absolute left-3 md:left-8 top-1/2 -translate-y-1/2 text-white hover:opacity-70 transition-opacity"
       >
-        &lt;
+        <CarouselArrow direction="left" />
       </button>
       <button
         type="button"
         onClick={next}
         aria-label="Next slide"
-        className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 w-9 h-9 md:w-12 md:h-12 rounded-full bg-white/70 hover:bg-white text-navy font-cardo text-xl md:text-2xl flex items-center justify-center transition-colors"
+        className="absolute right-3 md:right-8 top-1/2 -translate-y-1/2 text-white hover:opacity-70 transition-opacity"
       >
-        &gt;
+        <CarouselArrow direction="right" />
       </button>
 
       <div className="absolute bottom-3 md:bottom-5 left-0 right-0 flex justify-center gap-2">

@@ -36,12 +36,12 @@ export default function CustomerReviews({ heading, intro, items }) {
         <div className="relative">
           <div
             ref={scrollRef}
-            className="flex gap-4 md:gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-2 -mx-1 px-1 scroll-smooth"
+            className="flex gap-4 md:gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-2 -mx-1 px-1 scroll-smooth md:justify-center"
           >
             {list.map((review, index) => (
               <article
                 key={`${review.name}-${index}`}
-                className="shrink-0 w-[min(85vw,320px)] md:w-[340px] snap-start bg-navy text-white rounded-sm px-6 md:px-8 py-8 md:py-10"
+                className="shrink-0 w-[min(85vw,320px)] md:w-[340px] snap-start bg-navy text-white rounded-sm px-6 md:px-8 py-8 md:py-10 text-center"
               >
                 <h3 className="font-cardo font-bold text-xl md:text-2xl mb-3 md:mb-4">
                   {review.name}

@@ -24,7 +24,7 @@ export default function ExploreJewelry(props) {
           </p>
           <Link
             href={ctaHref}
-            className="inline-block w-fit font-cardo text-navy text-sm md:text-base bg-cream-soft border border-navy/80 rounded-sm px-10 md:px-16 py-2.5 md:py-3 hover:bg-navy hover:text-white transition-colors"
+            className="block w-full max-w-[280px] md:max-w-[340px] mx-auto text-center font-cardo text-navy text-sm md:text-base bg-cream-soft border border-navy/80 rounded-sm px-8 md:px-12 py-2.5 md:py-3 hover:bg-navy hover:text-white transition-colors"
           >
             {ctaLabel}
           </Link>

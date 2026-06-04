@@ -66,7 +66,7 @@ export default function Navbar({ authUser = null }) {
   return (
     <>
       {/* Mobile: single white header row (below TopBanner) */}
-      <div className="md:hidden bg-white border-b border-navy/10">
+      <div className="md:hidden bg-white border-b border-navy/10 shadow-[0_2px_8px_rgba(0,0,0,0.1)] relative z-20">
         <div className="flex items-center gap-2 px-3 py-2">
           <button
             type="button"
@@ -103,7 +103,7 @@ export default function Navbar({ authUser = null }) {
           </Link>
 
           <div className="flex items-center gap-2 shrink-0">
-            <HeaderAuthIcons authUser={authUser} compact />
+            <HeaderAuthIcons authUser={authUser} />
           </div>
         </div>
 
@@ -129,10 +129,10 @@ export default function Navbar({ authUser = null }) {
       </div>
 
       {/* Desktop: logo row + nav links */}
-      <div className="hidden md:flex bg-white items-center justify-center relative px-10 py-6">
+      <div className="hidden md:grid bg-white grid-cols-[1fr_auto_1fr] items-center px-10 py-6 shadow-[0_2px_8px_rgba(0,0,0,0.1)] z-20">
         <form
           onSubmit={handleSearch}
-          className="flex absolute top-8 left-10 items-center gap-2.5 border-b border-[#d1d5db] focus-within:border-navy/40 pb-1 min-w-[160px] max-w-[240px] transition-colors"
+          className="flex items-center gap-2.5 border-b border-[#d1d5db] focus-within:border-navy/40 pb-1 min-w-[160px] max-w-[240px] transition-colors justify-self-start self-center"
           role="search"
         >
           <SearchIcon />
@@ -146,7 +146,7 @@ export default function Navbar({ authUser = null }) {
             aria-label="Search products"
           />
         </form>
-        <Link href="/">
+        <Link href="/" className="justify-self-center">
           <Image
             src={logo}
             alt="Sangeeta's Boutique"
@@ -156,12 +156,12 @@ export default function Navbar({ authUser = null }) {
             priority
           />
         </Link>
-        <div className="flex items-center gap-4 absolute top-8 right-10">
+        <div className="flex items-center gap-4 justify-self-end self-center">
           <HeaderAuthIcons authUser={authUser} />
         </div>
       </div>
 
-      <nav className="hidden md:block bg-cream">
+      <nav className="hidden md:block bg-cream shadow-[0_2px_8px_rgba(0,0,0,0.1)] relative z-10">
         <ul className="flex items-center justify-center gap-12 py-3 font-cardo text-navy text-lg tracking-wide">
           <NavDropdown label="APPAREL" href="/apparel" items={NAV_APPAREL_LINKS} />
           <NavDropdown label="ACCESSORIES" href="/accessories" items={NAV_ACCESSORIES_LINKS} />

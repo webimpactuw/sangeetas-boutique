@@ -3,8 +3,41 @@
 import { useEffect, useState } from 'react'
 import { DEFAULT_FAQ_ITEMS } from '../lib/contentDefaults'
 
+function FaqQuestion({ item }) {
+  if (item.questionHighlight) {
+    return (
+      <>
+        {item.questionLead}{' '}
+        <em className="italic font-bold">{item.questionHighlight}</em>?
+      </>
+    )
+  }
+  return item.question
+}
+
+function FaqChevron({ open }) {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      aria-hidden
+      className={`text-navy/60 shrink-0 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
+    >
+      <path
+        d="M5 8L10 13L15 8"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
 /**
- * @param {{ items?: Array<{ id: string; question: string; answer: string }> }} props
+ * @param {{ items?: Array<{ id: string; question: string; answer: string; questionLead?: string; questionHighlight?: string }> }} props
  */
 function openIdFromHash(list) {
   if (typeof window === 'undefined') return null
@@ -50,10 +83,8 @@ export default function FaqSection({ items }) {
                   aria-expanded={open}
                   className="w-full flex items-center justify-between gap-4 px-5 md:px-6 py-4 md:py-5 font-cardo font-bold text-navy text-left text-base md:text-lg hover:bg-cream/50 transition-colors"
                 >
-                  {item.question}
-                  <span className="text-navy/60 text-xl flex-shrink-0" aria-hidden>
-                    {open ? '−' : '+'}
-                  </span>
+                  <FaqQuestion item={item} />
+                  <FaqChevron open={open} />
                 </button>
                 {open && (
                   <div className="px-5 md:px-6 pb-5 md:pb-6 font-cardo text-navy/85 text-sm md:text-base leading-relaxed border-t border-sanji-border/60">

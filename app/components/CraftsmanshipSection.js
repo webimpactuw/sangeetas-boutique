@@ -35,7 +35,7 @@ export default function CraftsmanshipSection(props) {
           </p>
           <Link
             href={ctaHref}
-            className="mt-6 md:mt-8 inline-block w-fit font-cardo text-white text-sm md:text-base border border-white/80 rounded-sm px-6 md:px-10 py-2.5 md:py-3 hover:bg-white hover:text-navy transition-colors"
+            className="mt-6 md:mt-8 block w-full max-w-[280px] md:max-w-[340px] mx-auto text-center font-cardo text-white text-sm md:text-base border border-white/80 rounded-sm px-8 md:px-12 py-2.5 md:py-3 hover:bg-white hover:text-navy transition-colors"
           >
             {ctaLabel}
           </Link>

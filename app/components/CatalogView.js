@@ -91,8 +91,8 @@ function CatalogViewInner({
       return
     }
     setFilters((f) => {
-      if (chip.type === 'priceRangeId') {
-        return { ...f, priceRangeId: null }
+      if (chip.type === 'price') {
+        return { ...f, priceMin: null, priceMax: null }
       }
       const list = f[chip.type] ?? []
       return { ...f, [chip.type]: list.filter((v) => v !== chip.value) }

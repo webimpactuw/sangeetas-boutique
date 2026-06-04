@@ -8,7 +8,7 @@ export default function MeetTheDesigner({
   imageAlt = 'Sanji in her studio with a dress on display',
 }) {
   return (
-    <section className="bg-cream py-12 md:py-20 px-6 md:px-16 lg:px-20">
+    <section className="bg-white py-12 md:py-20 px-6 md:px-16 lg:px-20">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14 lg:gap-20 items-center">
         <div>
           <p className="font-cardo text-navy text-xs md:text-sm uppercase tracking-[0.22em] mb-4 md:mb-5">
@@ -30,7 +30,7 @@ export default function MeetTheDesigner({
           </p>
         </div>
 
-        <div className="relative w-full max-w-sm mx-auto md:max-w-none md:mx-0 aspect-417/424">
+        <div className="relative w-full max-w-sm mx-auto md:max-w-none md:mx-0 aspect-[4/5] overflow-hidden">
           <Image
             src={imageSrc}
             alt={imageAlt}

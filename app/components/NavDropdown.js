@@ -26,7 +26,7 @@ export default function NavDropdown({ label, href, items }) {
       </Link>
       {open && (
         <ul className="absolute left-1/2 -translate-x-1/2 top-full pt-2 min-w-[200px] z-50">
-          <li className="bg-white border border-sanji-border shadow-lg rounded-sm py-2">
+          <li className="bg-white border border-sanji-border shadow-[0_4px_12px_rgba(0,0,0,0.15)] rounded-sm py-2">
             {items.map((item) => (
               <Link
                 key={item.href}

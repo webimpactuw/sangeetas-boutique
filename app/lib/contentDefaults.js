@@ -198,29 +198,37 @@ export const DEFAULT_FAQ_ITEMS = [
     id: 'buy',
     question: 'How do you buy items?',
     answer:
-      'Browse apparel and accessories, add items to your bag, then submit an order inquiry at checkout. Sanji will confirm your order and send payment instructions. You can also book an appointment for in-person styling.',
+      'To make a purchase, add items to your bag and enter your contact information to submit a request form. Sanji will reach out to confirm your request within 3–5 business days. Once your order is approved, she will send payment instructions by email. You can also book an appointment for in-person styling.',
   },
   {
     id: 'shipping',
     question: 'What is your Shipping Policy?',
+    questionLead: 'What is your',
+    questionHighlight: 'Shipping Policy',
     answer:
       'We ship within the United States. Shipping cost and timing depend on your location and selections at checkout. Sanji will confirm details when she approves your order.',
   },
   {
     id: 'returns',
     question: 'What is your Return Policy?',
+    questionLead: 'What is your',
+    questionHighlight: 'Return Policy',
     answer:
       'Because many pieces are made-to-order or tailored, returns are handled case by case. Contact Sanji as soon as possible if something is not right.',
   },
   {
     id: 'tailoring',
     question: 'What is your Tailoring Policy?',
+    questionLead: 'What is your',
+    questionHighlight: 'Tailoring Policy',
     answer:
       'Alterations and custom tailoring may be available depending on the garment. Mention your needs when booking or in your order notes.',
   },
   {
     id: 'tracking',
     question: 'What is your Tracking Policy?',
+    questionLead: 'What is your',
+    questionHighlight: 'Tracking Policy',
     answer:
       'After your order ships, Sanji will share tracking information by email or phone. Reach out if you have questions about delivery status.',
   },

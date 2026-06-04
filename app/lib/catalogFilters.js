@@ -8,8 +8,24 @@ export const FABRIC_OPTIONS = ['Silk', 'Cotton', 'Georgette', 'Chiffon', 'Linen'
 
 export const COLOR_OPTIONS = ['Blue', 'Red', 'Green', 'Cream', 'Gold', 'Black']
 
+export const COLOR_SWATCHES = {
+  Blue: '#2563eb',
+  Red: '#dc2626',
+  Green: '#16a34a',
+  Cream: '#f5f0e6',
+  Gold: '#ca8a04',
+  Black: '#1a2744',
+}
+
 export const SIZE_OPTIONS = ['XS', 'S', 'M', 'L', 'XL', 'XXL']
 
+export const PRICE_SLIDER = {
+  min: 0,
+  max: 400,
+  step: 5,
+}
+
+/** @deprecated Use PRICE_SLIDER — kept for reference labels only */
 export const PRICE_RANGES = [
   { id: '0-100', label: '$0 – $100', min: 0, max: 100 },
   { id: '101-200', label: '$101 – $200', min: 101, max: 200 },
@@ -22,9 +38,21 @@ export const EMPTY_FILTERS = {
   fabrics: [],
   colors: [],
   sizes: [],
-  priceRangeId: null,
+  priceMin: null,
+  priceMax: null,
   sort: 'new',
   search: '',
+}
+
+export function isPriceFilterActive(filters) {
+  return filters.priceMin != null || filters.priceMax != null
+}
+
+export function getPriceFilterBounds(filters) {
+  return {
+    min: filters.priceMin ?? PRICE_SLIDER.min,
+    max: filters.priceMax ?? PRICE_SLIDER.max,
+  }
 }
 
 /**
@@ -87,11 +115,9 @@ export function filterAndSortProducts(products, filters, categories = []) {
     )
   }
 
-  if (filters.priceRangeId) {
-    const range = PRICE_RANGES.find((r) => r.id === filters.priceRangeId)
-    if (range) {
-      list = list.filter((p) => p.price >= range.min && p.price <= range.max)
-    }
+  if (isPriceFilterActive(filters)) {
+    const { min, max } = getPriceFilterBounds(filters)
+    list = list.filter((p) => p.price >= min && p.price <= max)
   }
 
   if (filters.sort === 'price-asc') {
@@ -125,16 +151,14 @@ export function getActiveFilterChips(filters, categories) {
   for (const s of filters.sizes ?? []) {
     chips.push({ key: `size-${s}`, type: 'sizes', value: s, label: s })
   }
-  if (filters.priceRangeId) {
-    const range = PRICE_RANGES.find((r) => r.id === filters.priceRangeId)
-    if (range) {
-      chips.push({
-        key: `price-${range.id}`,
-        type: 'priceRangeId',
-        value: range.id,
-        label: range.label,
-      })
-    }
+  if (isPriceFilterActive(filters)) {
+    const { min, max } = getPriceFilterBounds(filters)
+    chips.push({
+      key: 'price',
+      type: 'price',
+      value: null,
+      label: `$${min} – $${max}`,
+    })
   }
   if (filters.search?.trim()) {
     chips.push({
@@ -154,7 +178,7 @@ export function countActiveFilters(filters) {
     (filters.fabrics?.length ?? 0) +
     (filters.colors?.length ?? 0) +
     (filters.sizes?.length ?? 0) +
-    (filters.priceRangeId ? 1 : 0) +
+    (isPriceFilterActive(filters) ? 1 : 0) +
     (filters.search?.trim() ? 1 : 0)
   )
 }

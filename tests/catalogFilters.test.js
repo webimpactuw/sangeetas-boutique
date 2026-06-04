@@ -57,7 +57,8 @@ describe('filterAndSortProducts', () => {
       fabrics: [],
       colors: [],
       sizes: [],
-      priceRangeId: null,
+      priceMin: null,
+      priceMax: null,
       sort: 'price-asc',
       search: '',
     })
@@ -71,12 +72,23 @@ describe('filterAndSortProducts', () => {
       fabrics: ['Silk'],
       colors: [],
       sizes: [],
-      priceRangeId: null,
+      priceMin: null,
+      priceMax: null,
       sort: 'new',
       search: '',
     })
     assert.equal(result.length, 1)
     assert.equal(result[0].fabric, 'Silk')
+  })
+
+  it('filters by price range slider', () => {
+    const result = filterAndSortProducts(sample, {
+      ...EMPTY_FILTERS,
+      priceMin: 160,
+      priceMax: 200,
+    })
+    assert.equal(result.length, 1)
+    assert.equal(result[0].id, 'a-2')
   })
 })
 
@@ -88,7 +100,8 @@ describe('getActiveFilterChips', () => {
         fabrics: ['Silk'],
         colors: [],
         sizes: [],
-        priceRangeId: null,
+        priceMin: null,
+      priceMax: null,
         sort: 'new',
         search: '',
       },

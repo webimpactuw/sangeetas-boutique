@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import logo from '@/public/images/brand-logo-small.png'
 import {
   DEFAULT_FOOTER_CONTACT,
   DEFAULT_FOOTER_POLICIES,
@@ -48,19 +49,26 @@ export default function Footer({
   return (
     <footer className="bg-navy text-white pt-10 md:pt-14 pb-6 md:pb-7 px-6 md:px-16">
       <div className="max-w-7xl mx-auto">
-        <div className="flex justify-center mb-8 md:mb-10">
-          <Link href="/" aria-label="Sanji's Label home">
+        <div className="flex justify-center mb-10 md:mb-12">
+          <Link href="/" aria-label="Sanji's Label home" className="flex flex-col items-center gap-2">
             <Image
-              src="/images/boutique-logo-bw.png"
-              alt="Sanji's Label"
-              width={120}
-              height={120}
-              className="object-contain w-[80px] md:w-[110px] h-auto"
+              src={logo}
+              alt=""
+              width={160}
+              height={160}
+              className="object-contain w-[96px] md:w-[128px] h-auto mix-blend-screen"
+              priority={false}
             />
+            <div className="text-center">
+              <p className="font-cardo font-bold tracking-[0.16em] text-sm md:text-base uppercase">
+                Sanji&apos;s
+              </p>
+              <p className="font-cardo italic text-xl md:text-2xl leading-none -mt-0.5">Label</p>
+            </div>
           </Link>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-10 mb-8 md:mb-10">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-y-10 md:gap-y-0 md:gap-x-10 lg:gap-x-16 xl:gap-x-20 mb-8 md:mb-10">
           <div>
             <h3 className="font-cardo font-bold text-base md:text-lg mb-3 md:mb-4">
               Quick Links

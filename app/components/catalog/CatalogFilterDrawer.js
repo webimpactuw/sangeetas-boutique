@@ -1,14 +1,15 @@
 'use client'
 
 import {
-  COLOR_OPTIONS,
   FABRIC_OPTIONS,
-  PRICE_RANGES,
   SIZE_OPTIONS,
   SORT_OPTIONS,
+  isPriceFilterActive,
 } from '../../lib/catalogFilters'
+import ColorFilterOptions from './ColorFilterOptions'
+import FilterSection from './FilterSection'
+import PriceRangeSlider from './PriceRangeSlider'
 
-const sectionTitle = 'font-cardo font-bold text-navy text-base md:text-lg mb-3'
 const checkClass = 'accent-navy w-4 h-4'
 
 /**
@@ -68,9 +69,12 @@ export default function CatalogFilterDrawer({
           </button>
         </div>
 
-        <div className="flex-1 overflow-y-auto px-5 py-5 space-y-8">
-          <section>
-            <h3 className={sectionTitle}>Sort</h3>
+        <div className="flex-1 overflow-y-auto px-5 py-5 space-y-6">
+          <FilterSection
+            title="Sort"
+            showClear={filters.sort !== 'new'}
+            onClear={() => setFilters((f) => ({ ...f, sort: 'new' }))}
+          >
             <div className="space-y-2">
               {SORT_OPTIONS.map((opt) => (
                 <label
@@ -88,10 +92,13 @@ export default function CatalogFilterDrawer({
                 </label>
               ))}
             </div>
-          </section>
+          </FilterSection>
 
-          <section>
-            <h3 className={sectionTitle}>Size</h3>
+          <FilterSection
+            title="Size"
+            showClear={(filters.sizes?.length ?? 0) > 0}
+            onClear={() => setFilters((f) => ({ ...f, sizes: [] }))}
+          >
             <div className="flex flex-wrap gap-2">
               {SIZE_OPTIONS.map((size) => {
                 const on = filters.sizes?.includes(size)
@@ -111,43 +118,27 @@ export default function CatalogFilterDrawer({
                 )
               })}
             </div>
-          </section>
+          </FilterSection>
 
-          <section>
-            <h3 className={sectionTitle}>Price</h3>
-            <div className="space-y-2">
-              {PRICE_RANGES.map((range) => (
-                <label
-                  key={range.id}
-                  className="flex items-center gap-2 font-cardo text-navy text-sm md:text-base cursor-pointer"
-                >
-                  <input
-                    type="radio"
-                    name="price"
-                    checked={filters.priceRangeId === range.id}
-                    onChange={() =>
-                      setFilters((f) => ({ ...f, priceRangeId: range.id }))
-                    }
-                    className={checkClass}
-                  />
-                  {range.label}
-                </label>
-              ))}
-              <label className="flex items-center gap-2 font-cardo text-navy text-sm cursor-pointer">
-                <input
-                  type="radio"
-                  name="price"
-                  checked={!filters.priceRangeId}
-                  onChange={() => setFilters((f) => ({ ...f, priceRangeId: null }))}
-                  className={checkClass}
-                />
-                Any price
-              </label>
-            </div>
-          </section>
+          <FilterSection
+            title="Price"
+            showClear={isPriceFilterActive(filters)}
+            onClear={() => setFilters((f) => ({ ...f, priceMin: null, priceMax: null }))}
+          >
+            <PriceRangeSlider
+              valueMin={filters.priceMin}
+              valueMax={filters.priceMax}
+              onChange={(priceMin, priceMax) =>
+                setFilters((f) => ({ ...f, priceMin, priceMax }))
+              }
+            />
+          </FilterSection>
 
-          <section>
-            <h3 className={sectionTitle}>Category</h3>
+          <FilterSection
+            title="Category"
+            showClear={(filters.categories?.length ?? 0) > 0}
+            onClear={() => setFilters((f) => ({ ...f, categories: [] }))}
+          >
             <div className="space-y-2 max-h-40 overflow-y-auto">
               {categories.map((cat) => (
                 <label
@@ -164,10 +155,13 @@ export default function CatalogFilterDrawer({
                 </label>
               ))}
             </div>
-          </section>
+          </FilterSection>
 
-          <section>
-            <h3 className={sectionTitle}>Fabric</h3>
+          <FilterSection
+            title="Fabric"
+            showClear={(filters.fabrics?.length ?? 0) > 0}
+            onClear={() => setFilters((f) => ({ ...f, fabrics: [] }))}
+          >
             <div className="space-y-2">
               {FABRIC_OPTIONS.map((fabric) => (
                 <label
@@ -184,27 +178,18 @@ export default function CatalogFilterDrawer({
                 </label>
               ))}
             </div>
-          </section>
+          </FilterSection>
 
-          <section>
-            <h3 className={sectionTitle}>Color</h3>
-            <div className="space-y-2">
-              {COLOR_OPTIONS.map((color) => (
-                <label
-                  key={color}
-                  className="flex items-center gap-2 font-cardo text-navy text-sm cursor-pointer"
-                >
-                  <input
-                    type="checkbox"
-                    checked={filters.colors?.includes(color)}
-                    onChange={() => toggleList('colors', color)}
-                    className={checkClass}
-                  />
-                  {color}
-                </label>
-              ))}
-            </div>
-          </section>
+          <FilterSection
+            title="Color"
+            showClear={(filters.colors?.length ?? 0) > 0}
+            onClear={() => setFilters((f) => ({ ...f, colors: [] }))}
+          >
+            <ColorFilterOptions
+              selected={filters.colors ?? []}
+              onToggle={(color) => toggleList('colors', color)}
+            />
+          </FilterSection>
         </div>
 
         <div className="border-t border-sanji-border px-5 py-4 flex gap-3">

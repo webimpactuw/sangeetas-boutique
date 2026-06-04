@@ -32,10 +32,10 @@ export default function AboutPage() {
     <main className="bg-white">
       <MeetTheDesigner />
 
-      <section className="bg-light-bg py-12 md:py-20 px-6 md:px-16">
+      <section className="bg-cream py-12 md:py-20 px-6 md:px-16">
         <div className="max-w-5xl mx-auto">
           <h2 className="font-cardo font-bold italic text-navy text-3xl md:text-5xl text-center mb-8 md:mb-12">
-            What We Offer
+            What We Do
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
             {offerings.map((item) => (

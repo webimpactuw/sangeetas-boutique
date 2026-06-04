@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { useRef, useState } from 'react'
+import CarouselArrow from '../CarouselArrow'
 import { CATEGORY_IMAGES } from '../../lib/products'
 
 /**
@@ -40,9 +41,9 @@ export default function CategoryCarousel({ categories, activeIds, onSelect }) {
           type="button"
           onClick={() => scroll(-1)}
           aria-label="Previous categories"
-          className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 items-center justify-center bg-white/90 border border-sanji-border rounded-full shadow-sm hover:bg-cream transition-colors"
+          className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 text-navy hover:opacity-70 transition-opacity"
         >
-          <span className="text-navy text-xl leading-none">&lsaquo;</span>
+          <CarouselArrow direction="left" />
         </button>
 
         <div
@@ -59,9 +60,7 @@ export default function CategoryCarousel({ categories, activeIds, onSelect }) {
                 type="button"
                 data-carousel-card
                 onClick={() => onSelect(selected ? null : cat.id)}
-                className={`flex-shrink-0 w-[42vw] max-w-[200px] md:w-[220px] snap-start text-left group ${
-                  selected ? 'ring-2 ring-navy ring-offset-2' : ''
-                }`}
+                className="flex-shrink-0 w-[42vw] max-w-[200px] md:w-[220px] snap-start text-left group focus:outline-none"
               >
                 <div className="relative w-full aspect-[3/4] overflow-hidden mb-2">
                   <Image
@@ -72,9 +71,17 @@ export default function CategoryCarousel({ categories, activeIds, onSelect }) {
                     sizes="220px"
                   />
                 </div>
-                <span className="block font-cardo italic text-navy text-lg md:text-xl text-center">
-                  {cat.label}
-                </span>
+                <div className="flex justify-center">
+                  <span
+                    className={`font-cardo italic text-navy text-lg md:text-xl transition-colors ${
+                      selected
+                        ? 'border border-navy rounded-full px-4 md:px-5 py-0.5 md:py-1'
+                        : ''
+                    }`}
+                  >
+                    {cat.label}
+                  </span>
+                </div>
               </button>
             )
           })}
@@ -84,9 +91,9 @@ export default function CategoryCarousel({ categories, activeIds, onSelect }) {
           type="button"
           onClick={() => scroll(1)}
           aria-label="Next categories"
-          className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 items-center justify-center bg-white/90 border border-sanji-border rounded-full shadow-sm hover:bg-cream transition-colors"
+          className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 text-navy hover:opacity-70 transition-opacity"
         >
-          <span className="text-navy text-xl leading-none">&rsaquo;</span>
+          <CarouselArrow direction="right" />
         </button>
       </div>
 

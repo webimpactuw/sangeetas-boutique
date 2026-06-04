@@ -36,3 +36,44 @@ body {
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
+.price-range-input {
+  appearance: none;
+  background: transparent;
+  pointer-events: none;
+  height: 2rem;
+  margin: 0;
+}
+
+.price-range-input::-webkit-slider-thumb {
+  appearance: none;
+  pointer-events: auto;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 9999px;
+  background: var(--navy);
+  border: 2px solid #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.price-range-input::-moz-range-thumb {
+  pointer-events: auto;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 9999px;
+  background: var(--navy);
+  border: 2px solid #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.price-range-input::-webkit-slider-runnable-track {
+  appearance: none;
+  background: transparent;
+}
+
+.price-range-input::-moz-range-track {
+  background: transparent;
+  border: none;
+}
