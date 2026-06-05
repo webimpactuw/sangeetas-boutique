@@ -150,7 +150,7 @@ export const DEFAULT_SITE_META = {
 }
 
 export const DEFAULT_FOOTER_CONTACT = {
-  phone: '425-862-8572',
+  phone: '425-677-5848',
   email: 'sanjimunoth@gmail.com',
   hours: [
     { label: 'Mon – Fri', time: '10AM – 5PM' },
@@ -164,7 +164,7 @@ export const DEFAULT_FOOTER_CONTACT = {
 export const DEFAULT_HELP = {
   title: 'Need Help?',
   ctaLabel: 'Contact Sanji',
-  phone: '425-862-8572',
+  phone: '425-677-5848',
   email: 'sanjimunoth@gmail.com',
 }
 

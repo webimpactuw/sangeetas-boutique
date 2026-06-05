@@ -10,7 +10,7 @@ export default function SiteShell({ banner, nav, footer, help, children }) {
   const isStudio = pathname?.startsWith('/studio')
 
   if (isStudio) {
-    return <div className="h-[100dvh] overflow-hidden">{children}</div>
+    return children
   }
 
   return (

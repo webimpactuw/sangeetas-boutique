@@ -11,6 +11,7 @@ export default defineConfig({
   name: 'default',
   title: "Sanji's Label — Website Editor",
   subtitle: 'Publish when done — changes appear on the live site in ~1 minute',
+  basePath: '/studio',
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'ybn5breb',
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
   plugins: [
