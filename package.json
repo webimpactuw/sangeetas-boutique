@@ -11,7 +11,8 @@
     "verify:resend": "node scripts/verify-resend-handoff.mjs",
     "sanity:schemas:deploy": "sanity schemas deploy",
     "sanity:init": "node scripts/init-sanity-studio.mjs",
-    "sanity:seed": "node scripts/seed-sanity.mjs"
+    "sanity:seed": "node scripts/seed-sanity.mjs",
+    "preview:emails": "echo 'Open http://localhost:3000/dev/emails in your browser'"
   },
   "dependencies": {
     "@sanity/client": "^7.22.0",

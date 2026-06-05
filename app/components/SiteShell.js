@@ -8,8 +8,9 @@ import { usePathname } from 'next/navigation'
 export default function SiteShell({ banner, nav, footer, help, children }) {
   const pathname = usePathname()
   const isStudio = pathname?.startsWith('/studio')
+  const isDevPreview = pathname?.startsWith('/dev')
 
-  if (isStudio) {
+  if (isStudio || isDevPreview) {
     return children
   }
 
