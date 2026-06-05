@@ -5,6 +5,7 @@ import TopBanner from "./components/TopBanner";
 import Navbar from "./components/navbar";
 import Footer from "./components/Footer";
 import HelpButtonwrapper from './components/HelpButtonwrapper'
+import SiteShell from "./components/SiteShell";
 import CartProvider from "./components/CartProvider";
 import FavoritesProvider from "./components/FavoritesProvider";
 import { serializeAuthUser } from "./lib/auth/user";
@@ -65,28 +66,37 @@ export default async function RootLayout({ children }) {
           initialFavoriteIds={favoriteIds}
         >
           <CartProvider userId={authUser?.id ?? null}>
-            <TopBanner prefix={s.topBannerPrefix} promoCode={s.promoCode} />
-            <Suspense
-              fallback={
-                <div className="bg-white border-b border-navy/10 min-h-[52px] md:min-h-[120px]" />
+            <SiteShell
+              banner={<TopBanner prefix={s.topBannerPrefix} promoCode={s.promoCode} />}
+              nav={
+                <Suspense
+                  fallback={
+                    <div className="bg-white border-b border-navy/10 min-h-[52px] md:min-h-[120px]" />
+                  }
+                >
+                  <Navbar authUser={authUser} />
+                </Suspense>
+              }
+              footer={
+                <Footer
+                  phone={s.footerPhone}
+                  email={s.footerEmail}
+                  hours={s.footerHours}
+                  copyrightLine={s.copyrightLine}
+                  quickLinks={s.footerQuickLinks}
+                  policies={s.footerPolicies}
+                />
+              }
+              help={
+                <HelpButtonwrapper
+                  title={s.helpTitle}
+                  ctaLabel={s.helpCtaLabel}
+                  email={s.helpEmail}
+                />
               }
             >
-              <Navbar authUser={authUser} />
-            </Suspense>
-            <div className="flex-1">{children}</div>
-            <Footer
-              phone={s.footerPhone}
-              email={s.footerEmail}
-              hours={s.footerHours}
-              copyrightLine={s.copyrightLine}
-              quickLinks={s.footerQuickLinks}
-              policies={s.footerPolicies}
-            />
-            <HelpButtonwrapper
-              title={s.helpTitle}
-              ctaLabel={s.helpCtaLabel}
-              email={s.helpEmail}
-            />
+              {children}
+            </SiteShell>
           </CartProvider>
         </FavoritesProvider>
       </body>

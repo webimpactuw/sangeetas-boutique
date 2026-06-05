@@ -13,7 +13,7 @@ const imageAlt = defineField({
 
 export default defineType({
   name: 'product',
-  title: 'Product',
+  title: 'Shop item',
   type: 'document',
   groups: [
     { name: 'basics', title: 'Basics', default: true },

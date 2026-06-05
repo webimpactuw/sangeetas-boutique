@@ -1,21 +1,70 @@
+import StudioWelcome from './components/StudioWelcome.jsx'
+
 /**
- * Studio sidebar — plain labels so Sanji knows where to click.
+ * Studio sidebar — daily tasks first, help at the top.
  */
 export const deskStructure = (S) =>
   S.list()
     .title("Sanji's Label")
     .items([
       S.listItem()
-        .title('① Site settings (banner, footer, phone)')
-        .id('singleton-siteSettings')
+        .title('★ Start here — quick guide')
+        .id('studio-welcome')
+        .child(S.component().component(StudioWelcome).title('How to use Studio')),
+
+      S.divider(),
+
+      S.listItem()
+        .title('① Products — add & edit shop items')
+        .child(
+          S.list()
+            .title('Products')
+            .items([
+              S.listItem()
+                .title('➕ New apparel item')
+                .child(
+                  S.document()
+                    .schemaType('product')
+                    .initialValueTemplate('product-apparel')
+                    .title('New apparel item'),
+                ),
+              S.listItem()
+                .title('➕ New jewelry / accessory')
+                .child(
+                  S.document()
+                    .schemaType('product')
+                    .initialValueTemplate('product-accessory')
+                    .title('New jewelry / accessory'),
+                ),
+              S.divider(),
+              S.documentTypeListItem('product')
+                .title('All products')
+                .child(
+                  S.documentTypeList('product')
+                    .title('All products')
+                    .defaultOrdering([{ field: '_createdAt', direction: 'desc' }])
+                    .initialValueTemplates([
+                      S.initialValueTemplateItem('product-apparel'),
+                      S.initialValueTemplateItem('product-accessory'),
+                    ]),
+                ),
+            ]),
+        ),
+
+      S.listItem()
+        .title('② Gallery photos')
+        .id('singleton-galleryPage')
         .child(
           S.document()
-            .schemaType('siteSettings')
-            .documentId('siteSettings')
-            .title('Site settings'),
+            .schemaType('galleryPage')
+            .documentId('galleryPage')
+            .title('Gallery photos'),
         ),
+
+      S.divider(),
+
       S.listItem()
-        .title('② Home page (hero, categories, reviews)')
+        .title('③ Home page (hero, categories, reviews)')
         .id('singleton-homePage')
         .child(
           S.document()
@@ -23,21 +72,14 @@ export const deskStructure = (S) =>
             .documentId('homePage')
             .title('Home page'),
         ),
-      S.divider(),
+
       S.listItem()
-        .title('③ Products — add & edit items')
-        .child(
-          S.documentTypeList('product')
-            .title('Products')
-            .defaultOrdering([{ field: 'name', direction: 'asc' }]),
-        ),
-      S.listItem()
-        .title('④ Gallery photos')
-        .id('singleton-galleryPage')
+        .title('④ Site settings (promo bar, footer, phone)')
+        .id('singleton-siteSettings')
         .child(
           S.document()
-            .schemaType('galleryPage')
-            .documentId('galleryPage')
-            .title('Gallery page'),
+            .schemaType('siteSettings')
+            .documentId('siteSettings')
+            .title('Site settings'),
         ),
     ])

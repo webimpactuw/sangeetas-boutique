@@ -9,7 +9,8 @@ const isDev = process.env.NODE_ENV === 'development'
 
 export default defineConfig({
   name: 'default',
-  title: "Sangeeta's Boutique",
+  title: "Sanji's Label — Website Editor",
+  subtitle: 'Publish when done — changes appear on the live site in ~1 minute',
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'ybn5breb',
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
   plugins: [
@@ -18,5 +19,30 @@ export default defineConfig({
   ],
   schema: {
     types: schemaTypes,
+    templates: (prev) => [
+      ...prev.filter((t) => t.schemaType !== 'product'),
+      {
+        id: 'product-apparel',
+        title: 'New apparel item',
+        schemaType: 'product',
+        value: {
+          department: 'apparel',
+          category: 'lehengas',
+          published: true,
+          sizes: ['XS', 'S', 'M', 'L', 'XL'],
+          colors: ['Blue', 'Red', 'Green', 'Cream'],
+        },
+      },
+      {
+        id: 'product-accessory',
+        title: 'New jewelry / accessory',
+        schemaType: 'product',
+        value: {
+          department: 'accessories',
+          category: 'jewelry',
+          published: true,
+        },
+      },
+    ],
   },
 })

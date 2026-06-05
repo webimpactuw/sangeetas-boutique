@@ -8,7 +8,7 @@ const imageAlt = defineField({
 
 export default defineType({
   name: 'galleryPage',
-  title: 'Gallery page',
+  title: 'Gallery photos',
   type: 'document',
   fields: [
     defineField({

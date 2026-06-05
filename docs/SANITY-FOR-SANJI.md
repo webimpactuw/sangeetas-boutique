@@ -1,51 +1,61 @@
 # How to update the website (Sanji)
 
-You edit content in **Sanity Studio** — not in code. Ask your developer for the Studio link, or run locally with `npx sanity dev`.
+Edit the site at **Studio** — not in code.
 
-## Quick guide
+**Studio link:** ask your developer, or open  
+`https://sangeetas-boutique.vercel.app/studio`  
+(use your custom domain + `/studio` when you have one)
 
-### Add a new product
+Sign in with the Google/email address you were invited with on Sanity.
 
-1. Open **③ Products — add & edit items**
-2. Click **Create new**
+---
+
+## First time in Studio?
+
+1. Click **★ Start here — quick guide** in the left sidebar.
+2. Then open **① Products** to add your first item.
+
+Always click **Publish** when you are done (drafts do not show on the live site).
+
+---
+
+## Add a new product
+
+1. Open **① Products — add & edit shop items**
+2. Click **Create** → choose **New apparel item** or **New jewelry / accessory**
 3. Fill in:
    - **Product name** — what customers see
    - **Web address name** — click **Generate** next to the slug
    - **Shop section** — Apparel or Accessories
-   - **Category** — pick one:
-     - **Lehengas** — skirt + crop top sets
-     - **Sarees** — traditional saree fabric
-     - **Indo-Western Wear** — fusion pants / coordinated sets
-     - **Readymade Sarees** — pre-draped with crop top or blouse
-     - Jewelry categories for accessories
+   - **Category** — Lehengas, Sarees, Indo-Western, Readymade Sarees, or jewelry types
    - **Price (USD)**
-   - **Main photo** — required (upload from your phone or computer)
-   - **Show on website** — leave on; turn off to hide while drafting
+   - **Main photo** — required
+   - **Show on website** — leave on
 4. Click **Publish**
 
 The product appears on the site within about a minute.
 
-### Change gallery photos
+---
 
-1. Open **④ Gallery photos**
-2. Add, remove, or drag photos to reorder
+## Change gallery photos
+
+1. Open **② Gallery photos**
+2. Upload images, drag to reorder
 3. **Publish**
 
-### Change home page or sale banner
+---
 
-- **① Site settings** — promo code text, phone, footer
-- **② Home page** — hero slides, category tiles, customer reviews
+## Change home page or sale banner
+
+- **③ Home page** — hero slides, category tiles, customer reviews
+- **④ Site settings** — promo code in the top bar, phone, footer hours
+
+---
 
 ## Tips
 
-- Always click **Publish** after edits (drafts do not show on the live site).
-- Use clear, well-lit photos; the main photo is what shows on the shop grid.
-- If a product is wrong category, change **Category** and **Shop section**, then publish again.
+- Use clear, well-lit photos for **Main photo**.
+- Turn off **Show on website** to hide something while you are still working on it.
+- Wait 1–2 minutes after Publish, then refresh the website.
 
-## When something does not appear
-
-- Check **Show on website** is on
-- Check **Main photo** is uploaded
-- Wait 1–2 minutes and refresh the website
-
-For technical issues, contact your developer.
+For login or technical issues, contact your developer.
