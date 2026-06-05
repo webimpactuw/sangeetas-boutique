@@ -4,6 +4,7 @@ import {
   SANITY_ACCESSORY_CATEGORY_OPTIONS,
   SANITY_APPAREL_CATEGORY_OPTIONS,
 } from '../../app/lib/categories.js'
+import CategoryInput from '../components/CategoryInput.jsx'
 
 const imageAlt = defineField({
   name: 'alt',
@@ -74,10 +75,10 @@ export default defineType({
           return true
         }),
       options: {
-        list: ({ document }) =>
-          document?.department === 'accessories'
-            ? SANITY_ACCESSORY_CATEGORY_OPTIONS
-            : SANITY_APPAREL_CATEGORY_OPTIONS,
+        layout: 'dropdown',
+      },
+      components: {
+        input: CategoryInput,
       },
     }),
     defineField({
